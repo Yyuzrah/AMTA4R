@@ -1,0 +1,1150 @@
+\section{Formal Setup and Notation}
+\label{app:setup}
+
+This section collects the formal objects used throughout the appendix and fixes notation for the structural measure-theoretic formulation of search-based reasoning.
+
+\subsection{Trajectory Space and Structural Feature Space}
+\label{app:trajectory-space}
+
+Let $\mathcal{V}$ be a finite vocabulary and let $T_{\max}\in\mathbb{N}^+$ denote the maximum physical sequence length. The ambient space of bounded-length sequences is
+\begin{equation}
+\mathcal{Z}_{\mathrm{all}} := \bigcup_{t=1}^{T_{\max}} \mathcal{V}^{t}.
+\end{equation}
+Let $\Gamma$ denote the autoregressive grammar of valid search trajectories. The trajectory space is
+\begin{equation}
+\mathcal{Z} := \{ z \in \mathcal{Z}_{\mathrm{all}} : z \text{ satisfies } \Gamma \}.
+\end{equation}
+Since $|\mathcal{V}| < \infty$ and $T_{\max} < \infty$, the set $\mathcal{Z}$ is finite. We equip $\mathcal{Z}$ with the discrete $\sigma$-algebra
+\begin{equation}
+\Sigma_{\mathcal{Z}} := 2^{\mathcal{Z}}.
+\end{equation}
+We consider source and target probability measures
+\begin{equation}
+\mu_S, \mu_T \in \mathcal{P}(\mathcal{Z}),
+\end{equation}
+where $\mathcal{P}(\mathcal{Z})$ denotes the set of probability measures on $(\mathcal{Z}, \Sigma_{\mathcal{Z}})$.
+
+Each trajectory $z\in\mathcal Z$ is written as
+\begin{equation}
+z = x_{\mathrm{init}}^{(z)} \oplus y_{\mathrm{search}},
+\end{equation}
+where $x_{\mathrm{init}}^{(z)}\in\mathcal V^k$ is the initial problem state and $y_{\mathrm{search}}\in\mathcal V^{t-k}$ is the generated search trace.
+
+We next define the structural feature space. Let $\mathcal{X} \subset \mathbb{R}^{12}$ be the structural state space, equipped with the Euclidean metric
+\begin{equation}
+d_{\mathcal{X}}(\mathbf{u}, \mathbf{v}) := \|\mathbf{u} - \mathbf{v}\|_2.
+\end{equation}
+
+We equip $\mathcal{X}$ with the Borel $\sigma$-algebra $\mathcal{B}(\mathcal{X})$ induced by this metric. Because all trajectories have bounded physical length, each structural coordinate is bounded. We therefore take $\mathcal X$ to be a bounded Borel subset of $\mathbb R^{12}$ containing $\Phi(\mathcal Z)$; when compactness is needed, we replace $\mathcal X$ by its closure, which leaves the pushforward measures of Appendix~\ref{app:pushforward} unchanged.
+
+We give the coordinate-level construction of the structural projection
+\begin{equation}
+\Phi : \mathcal{Z} \to \mathcal{X}, 
+\qquad
+z \mapsto \boldsymbol{\chi}(z) =
+[\chi_1(z),\dots,\chi_{12}(z)]^\top,
+\end{equation}
+which maps a variable-length discrete trajectory to a fixed-dimensional structural representation.
+
+Let $N$ denote the number of node references in $z$, i.e., the node identifiers in \texttt{"Generated Node"} and \texttt{"Moving to Node"} lines in order of appearance (revisits counted), and let $N_{\mathrm{gen}}$ denote the number of explicitly generated nodes. The definitions below assume $N\ge 1$; a trajectory without node references has $\chi_1=\dots=\chi_9=0$. For the $i$-th node reference, let $\mathrm{id}_i$ denote its sequence identifier and let
+\begin{equation}
+D_i := |\mathrm{id}_i|
+\end{equation}
+be its structural tree depth. Let $C(z,\omega)$ denote the number of exact non-overlapping occurrences of a substring $\omega$ in $z$.
+
+The vector $\boldsymbol{\chi}(z)$ is defined through three groups of statistics. These features summarize the search structure of a trajectory.
+
+\paragraph{Tree-structural and volumetric statistics.}
+\begin{align}
+\chi_1(z) &= \max_{1 \le i \le N} D_i 
+&& \text{(maximum depth)}, \\
+\chi_2(z) &= \frac{1}{N}\sum_{i=1}^{N} D_i 
+&& \text{(mean depth)}, \\
+\chi_3(z) &= \left( \frac{1}{N}\sum_{i=1}^{N}(D_i-\chi_2)^2 \right)^{1/2}
+&& \text{(depth standard deviation)}, \\
+\chi_4(z) &= N
+&& \text{(search volume)}.
+\end{align}
+
+\paragraph{Dynamical transition statistics.}
+Let $M := \max(1, N-1)$. We define
+\begin{align}
+\chi_5(z) &= \frac{1}{M}\sum_{i=1}^{N-1}\mathbb{I}\{D_{i+1} > D_i\}
+&& \text{(deepening rate)}, \\
+\chi_6(z) &= \frac{1}{M}\sum_{i=1}^{N-1}\mathbb{I}\{D_{i+1} < D_i\}
+&& \text{(backtracking rate)}, \\
+\chi_7(z) &= \frac{1}{M}\sum_{i=1}^{N-1}\mathbb{I}\{D_{i+1} = D_i\}
+&& \text{(lateral transition rate)}.
+\end{align}
+
+\paragraph{Pruning and outcome statistics.}
+\begin{align}
+\chi_8(z) &= C(z,\texttt{"No Solution"})
+&& \text{(prune count)}, \\
+\chi_9(z) &= \chi_8/N_{\mathrm{gen}}
+&& \text{(pruning rate; $0$ if $N_{\mathrm{gen}}=0$)}, \\
+\chi_{10}(z) &= \mathbb{I}\{C(z,\texttt{"Goal Reached"}) \ge 1\}
+&& \text{(solution indicator)}, \\
+\chi_{11}(z) &= C(z,\texttt{"*"}) + C(z,\texttt{"/"})
+&& \text{(multiplicative bias)}, \\
+\chi_{12}(z) &= C(z,\texttt{"+"}) + C(z,\texttt{"-"})
+&& \text{(additive bias)}.
+\end{align}
+
+Since $\mathcal{Z}$ is finite and carries the discrete $\sigma$-algebra, every map from $\mathcal{Z}$ into $(\mathcal{X},\mathcal{B}(\mathcal{X}))$ is measurable. In particular, $\Phi$ is Borel measurable, and its image $\Phi(\mathcal Z)$ is finite.
+
+\subsection{Theoretical Justification of Structural Sufficiency (\texorpdfstring{$\epsilon$}{epsilon}-Relaxation)}
+\label{app:empirical_sufficiency}
+
+Assumption~\ref{assum:epsilon_relaxed} states that the projection $\Phi(z)$ is a sufficient structural proxy for the expected zero-one risk, up to a residual error $\epsilon$. This relaxation is motivated by the deterministic nature of formal combinatorial planning (e.g., the Countdown task). Appendix~\ref{app:gbc_check} tests the assumption on two trained models, where $\boldsymbol{\chi}$ alone predicts per-problem success with out-of-fold ROC-AUC $0.93$.
+
+Success in algorithmic search tasks is largely determined by the routing strategy of the search. Whether a trajectory reaches a valid solution depends on exploring sufficiently deep computational graphs (captured by maximum depth $\chi_1$), successfully executing recursive recoveries (backtracking rate $\chi_6$), and balancing operator heuristics (additive vs. multiplicative biases $\chi_{11}, \chi_{12}$). 
+
+By design, our structural feature space $\mathcal{X}$ captures these graph-traversal dynamics. The residual $\epsilon$ collects what $\Phi$ abstracts away, in particular the token identities (i.e., the specific integer values); it is small when the structure of a problem's reference search, as recorded by $\Phi$, predicts whether the model solves that problem (Appendix~\ref{app:gbc_check}). Given Assumption~\ref{assum:epsilon_relaxed} and a Lipschitz risk function over $\mathcal{X}$, the trajectory-level risk gap is then at most $K_f\,W_1(\nu_S,\nu_T)+2\epsilon$ (Lemma~\ref{lemma:error_decomposition}). The $\epsilon$-relaxation thus connects discrete sequence generation to the measure-theoretic analysis on $\mathcal{X}$.
+
+\subsection{Pushforward Measures and Structural Shift}
+\label{app:pushforward}
+
+The structural source and target measures are defined as the pushforwards of $\mu_S$ and $\mu_T$ under $\Phi$:
+\begin{equation}
+\nu_S := \Phi_{\#}\mu_S,
+\qquad
+\nu_T := \Phi_{\#}\mu_T.
+\end{equation}
+Since $\Phi$ is Borel measurable, $\nu_S$ and $\nu_T$ are Borel probability measures on $(\mathcal{X},\mathcal{B}(\mathcal{X}))$. Moreover, because $\Phi(\mathcal Z)$ is finite and $\mathcal X$ is bounded, both measures have finite first moment; equivalently, $\nu_S,\nu_T\in\mathcal{P}_1(\mathcal X)$.
+By definition, for any Borel set $A \in \mathcal{B}(\mathcal{X})$,
+\begin{equation}
+\nu_S(A) = \mu_S(\Phi^{-1}(A)),
+\qquad
+\nu_T(A) = \mu_T(\Phi^{-1}(A)).
+\end{equation}
+Because $\mathcal{Z}$ is finite, the pushforward measures admit the explicit representations
+\begin{align}
+\nu_S(A) &= \sum_{z \in \mathcal{Z}} \mathbb{I}_A(\Phi(z))\,\mu_S(\{z\}), \\
+\nu_T(A) &= \sum_{z \in \mathcal{Z}} \mathbb{I}_A(\Phi(z))\,\mu_T(\{z\}).
+\end{align}
+
+To quantify the structural discrepancy between source and target reasoning behaviors, we use the Wasserstein-1 distance between their pushforward measures
+\begin{equation}
+W_1(\nu_S,\nu_T)
+:=
+\inf_{\pi \in \Pi(\nu_S,\nu_T)}
+\int_{\mathcal{X}\times\mathcal{X}}
+d_{\mathcal{X}}(\mathbf{u},\mathbf{v})\,d\pi(\mathbf{u},\mathbf{v}),
+\end{equation}
+where $\Pi(\nu_S,\nu_T)$ denotes the set of couplings of $\nu_S$ and $\nu_T$, i.e., the set of probability measures on $\mathcal{X}\times\mathcal{X}$ whose marginals are $\nu_S$ and $\nu_T$ \citep{Villani2009}. Since $\nu_S,\nu_T\in\mathcal{P}_1(\mathcal X)$ and $\mathcal X$ is bounded, the transportation cost is finite for every $\pi \in \Pi(\nu_S,\nu_T)$. Hence $W_1(\nu_S,\nu_T)$ is well-defined and finite.
+\subsection{Risk and Structural Risk}
+\label{app:risk}
+
+Let $\mathcal{F}_{L,m,\mathrm{PE}}$ denote the class of autoregressive Transformer models with layer depth $L$, hidden dimension $m$, and positional encoding scheme $\mathrm{PE}$. By the trajectory decomposition defined earlier, each $z \in \mathcal{Z}$ induces an initial problem state, denoted by $x_{\mathrm{init}}^{(z)}$. For a model $f \in \mathcal{F}_{L,m,\mathrm{PE}}$, the generated trajectory obtained from the prompt induced by $z$ is
+\begin{equation}
+f(x_{\mathrm{init}}^{(z)}) \in \mathcal{Z}_{\mathrm{all}}.
+\end{equation}
+
+Let $S_z : \mathcal{Z}_{\mathrm{all}} \to \mathbb{R}$ be a deterministic scoring function parameterized by the target state of the reference trajectory $z$, evaluating the formal validity of the generated output. We define the zero-one loss by
+\begin{equation}
+\ell(f,z) := 1 - \mathbb{I}_{(0, \infty)}\left(S_z\left(f(x_{\mathrm{init}}^{(z)})\right)\right).
+\end{equation}
+For any probability measure $\mu \in \mathcal{P}(\mathcal{Z})$, the expected risk of $f$ under $\mu$ is
+\begin{equation}
+\mathcal{R}_{\mu}(f) := \mathbb{E}_{z\sim\mu}[\ell(f,z)].
+\end{equation}
+
+In the main text, we relate the trajectory-level risk $\mathcal{R}_{\mu}(f)$ to a structural risk functional defined on $\mathcal{X}$ through the pushforward measure $\Phi_{\#}\mu$. 
+
+\section{Proofs of Structural Generalization Results}
+\label{app:structural-results}
+
+\subsection{Structural Sufficiency Assumption}
+\label{app:structural-sufficiency}
+
+We recall Assumption~\ref{assum:epsilon_relaxed}, which is used throughout the proofs below. It states that there exists an irreducible approximation error $\epsilon>0$ such that, for each model $f$, there is a Borel measurable structural risk function $\mathcal{L}_f:\mathcal{X}\to[0,1]$ satisfying, for every $\mu\in\{\mu_S,\mu_T\}$,
+\begin{equation}
+\left|
+\mathcal{R}_{\mu}(f)
+-
+\int_{\mathcal{X}}
+\mathcal{L}_f(\boldsymbol{\chi})\,d(\Phi_{\#}\mu)(\boldsymbol{\chi})
+\right|
+\le \epsilon .
+\end{equation}
+
+\subsection{Proof of Lemma~\ref{lemma:error_decomposition}}
+\label{app:proof-error-decomp}
+We now provide a complete proof of Lemma~\ref{lemma:error_decomposition}, formalizing the sketch given in the main text. For completeness, we restate Lemma~\ref{lemma:error_decomposition}.
+
+Assume that $\mathcal{L}_f$ is Lipschitz continuous on $(\mathcal{X}, d_{\mathcal{X}})$ with minimal Lipschitz constant
+\begin{equation}
+K_f
+:=
+\sup_{\boldsymbol{u}\neq \boldsymbol{v} \in \mathcal{X}}
+\frac{|\mathcal{L}_f(\boldsymbol{u})-\mathcal{L}_f(\boldsymbol{v})|}{d_{\mathcal{X}}(\boldsymbol{u},\boldsymbol{v})}.
+\end{equation}
+Then the generalization error gap satisfies
+\begin{equation}
+\left|
+\mathcal{R}_{\mu_T}(f)-\mathcal{R}_{\mu_S}(f)
+\right|
+\le
+K_f\,W_1(\nu_S,\nu_T)+2\epsilon.
+\end{equation}
+
+\begin{proof}
+Let
+\begin{equation}
+\Delta \mathcal{R}
+:=
+\left|
+\mathcal{R}_{\mu_T}(f)-\mathcal{R}_{\mu_S}(f)
+\right|.
+\end{equation}
+Adding and subtracting the structural expectations under $\nu_T$ and $\nu_S$ gives
+\begin{align}
+\Delta \mathcal{R}
+&=
+\Bigg|
+\mathcal{R}_{\mu_T}(f)
+-
+\int_{\mathcal{X}}\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi})
++
+\int_{\mathcal{X}}\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi})
+\notag\\
+&\qquad
+-
+\int_{\mathcal{X}}\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_S(\boldsymbol{\chi})
++
+\int_{\mathcal{X}}\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_S(\boldsymbol{\chi})
+-
+\mathcal{R}_{\mu_S}(f)
+\Bigg|.
+\end{align}
+Applying the triangle inequality yields
+\begin{align}
+\Delta \mathcal{R}
+&\le
+\left|
+\mathcal{R}_{\mu_T}(f)
+-
+\int_{\mathcal{X}}\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi})
+\right|
+\notag\\
+&\qquad+
+\left|
+\int_{\mathcal{X}}\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi})
+-
+\int_{\mathcal{X}}\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_S(\boldsymbol{\chi})
+\right|
+\notag\\
+&\qquad+
+\left|
+\int_{\mathcal{X}}\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_S(\boldsymbol{\chi})
+-
+\mathcal{R}_{\mu_S}(f)
+\right|.
+\end{align}
+By Assumption~\ref{assum:epsilon_relaxed},
+\begin{equation}
+\Delta \mathcal{R}
+\le
+\left|
+\int_{\mathcal{X}}\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi})
+-
+\int_{\mathcal{X}}\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_S(\boldsymbol{\chi})
+\right|
++2\epsilon.
+\end{equation}
+
+If $K_f=0$, then $\mathcal{L}_f$ is constant on $\mathcal{X}$, so the integral difference vanishes and the claim follows immediately.
+
+Assume now that $K_f>0$, and define
+\begin{equation}
+g(\boldsymbol{\chi}) := \frac{\mathcal{L}_f(\boldsymbol{\chi})}{K_f}.
+\end{equation}
+Then $g$ is $1$-Lipschitz. Since $\nu_S,\nu_T\in\mathcal{P}_1(\mathcal X)$, the Kantorovich--Rubinstein duality for $W_1$ applies on $(\mathcal X,d_{\mathcal X})$ \citep{Villani2009,weed2019sharp}. Therefore,
+\begin{equation}
+\left|
+\int_{\mathcal{X}} g(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi})
+-
+\int_{\mathcal{X}} g(\boldsymbol{\chi})\,d\nu_S(\boldsymbol{\chi})
+\right|
+\le
+W_1(\nu_S,\nu_T).
+\end{equation}
+Substituting $g=\mathcal{L}_f/K_f$ gives
+\begin{equation}
+\left|
+\int_{\mathcal{X}} \mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi})
+-
+\int_{\mathcal{X}} \mathcal{L}_f(\boldsymbol{\chi})\,d\nu_S(\boldsymbol{\chi})
+\right|
+\le
+K_f\,W_1(\nu_S,\nu_T).
+\end{equation}
+Combining this bound with the previous inequality yields
+\begin{equation}
+\Delta \mathcal{R}
+\le
+K_f\,W_1(\nu_S,\nu_T)+2\epsilon,
+\end{equation}
+which proves the claim.
+\end{proof}
+
+\section{Proofs of Positional Encoding Results}
+\label{app:pe-results}
+
+\subsection{Attention Kernels and the Translation Operator}
+\label{app:attention-translation}
+
+We first restate the attention kernels for APE and RoPE. Let $\mathbf{x}_i,\mathbf{x}_j \in \mathbb{R}^d$ denote hidden state vectors at absolute sequence indices $i$ and $j$, and let $\mathbf{W}_Q,\mathbf{W}_K \in \mathbb{R}^{d\times d}$ denote the learned query and key projection matrices.
+
+For Absolute Positional Encoding (APE), let $\mathbf{p}_i,\mathbf{p}_j \in \mathbb{R}^d$ denote the absolute position embeddings. The pre-softmax attention score is
+\begin{equation}
+A_{i,j}^{\mathrm{APE}}
+=
+(\mathbf{x}_i+\mathbf{p}_i)^\top
+\mathbf{W}_Q^\top \mathbf{W}_K
+(\mathbf{x}_j+\mathbf{p}_j).
+\end{equation}
+
+For Rotary Position Embedding (RoPE) \citep{su2023roformerenhancedtransformerrotary}, let $\mathbf{R}_\Theta^t \in \mathbb{R}^{d\times d}$ denote the orthogonal block-diagonal rotation matrix associated with position $t$. Using $(\mathbf{R}_\Theta^i)^\top = (\mathbf{R}_\Theta^i)^{-1} = \mathbf{R}_\Theta^{-i}$, the pre-softmax attention score is
+\begin{align}
+A_{i,j}^{\mathrm{RoPE}}
+&=
+(\mathbf{R}_\Theta^i \mathbf{W}_Q \mathbf{x}_i)^\top
+(\mathbf{R}_\Theta^j \mathbf{W}_K \mathbf{x}_j) \\
+&=
+\mathbf{x}_i^\top \mathbf{W}_Q^\top
+(\mathbf{R}_\Theta^i)^\top
+\mathbf{R}_\Theta^j
+\mathbf{W}_K \mathbf{x}_j \\
+&=
+\mathbf{x}_i^\top \mathbf{W}_Q^\top
+\mathbf{R}_\Theta^{j-i}
+\mathbf{W}_K \mathbf{x}_j .
+\end{align}
+
+\paragraph{Operational Bounds on Structural Perturbation $\delta$.}
+Let $z \in \mathcal{Z}$ be written as $z = x_{\mathrm{init}}^{(z)} \oplus y_{\mathrm{search}}$. For $k \in \mathbb{N}^+$, the translation operator
+\[
+\mathcal{T}_k : \mathcal{Z} \to \mathcal{Z}
+\]
+inserts an isolated, structurally inert node (e.g., an identity operation such as \texttt{x=x}) of exactly $k$ tokens immediately before a local reasoning sub-trajectory $\omega \subset y_{\mathrm{search}}$.
+
+Under the projection $\Phi$, this insertion increments the absolute volume coordinate by one: $\chi_4' = \chi_4 + 1$. Because the inserted node does not alter the maximum tree depth ($\Delta \chi_1 = 0$) and its contribution to the global transition rates and depth variance decays at a rate of $\mathcal{O}(1/N)$, the remaining structural perturbations are negligible for long trajectories. Hence, the exact Euclidean structural distance evaluates to:
+\begin{equation}
+    d_{\mathcal{X}}(\boldsymbol{\chi},\boldsymbol{\chi}')
+    =
+    \left(
+    1^2+\sum_{m\neq 4}(\Delta\chi_m)^2
+    \right)^{1/2}
+    =: \delta.
+\end{equation}
+As the trajectory length $N$ grows, $\sum_{m\neq 4}(\Delta\chi_m)^2 \to 0$, which bounds the perturbation distance around unity: $1 \le \delta \le 1 + \mathcal{O}(1/N) =: C_\delta$. Concurrently, every token in the subsequent sub-trajectory $\omega$ undergoes an absolute index shift of $+k$.
+
+\subsection{Proof of Lemma~\ref{lemma:ape_shattering}}
+\label{app:proof-ape-shattering}
+
+For completeness, we restate Lemma~\ref{lemma:ape_shattering}.
+
+Assume the network parameters (projection matrices $\mathbf{W}_Q, \mathbf{W}_K$ and the absolute position embeddings $\mathbf{p}_t$) are generically parameterized (i.e., avoiding exact algebraic degeneracies), and that
+\begin{equation}
+\mathbf{W}_Q^\top \mathbf{W}_K \neq \mathbf{0}.
+\end{equation}
+Then, under the translation operator $\mathcal{T}_k$ with $k>0$, the local attention kernel of an APE model differs almost surely:
+\begin{equation}
+\Delta A^{\mathrm{APE}} = |\tilde{A}_{a,b}^{\mathrm{APE}} - A_{a,b}^{\mathrm{APE}}| > 0
+\qquad \text{a.s.}
+\end{equation}
+
+\begin{proof}
+Let $\mathbf{x}_a,\mathbf{x}_b \in \omega$ be tokens originally appearing at indices $a$ and $b$. After applying $\mathcal{T}_k$, these indices become $a+k$ and $b+k$. The resulting attention difference is
+\begin{align}
+\Delta A^{\mathrm{APE}}
+&:=
+\left|
+\widetilde{A}_{a,b}^{\mathrm{APE}} - A_{a,b}^{\mathrm{APE}}
+\right| \\
+&=
+\Big|
+(\mathbf{x}_a+\mathbf{p}_{a+k})^\top \mathbf{W}_Q^\top \mathbf{W}_K (\mathbf{x}_b+\mathbf{p}_{b+k})
+-
+(\mathbf{x}_a+\mathbf{p}_a)^\top \mathbf{W}_Q^\top \mathbf{W}_K (\mathbf{x}_b+\mathbf{p}_b)
+\Big|.
+\end{align}
+Expanding both bilinear forms and canceling the shared term $\mathbf{x}_a^\top \mathbf{W}_Q^\top \mathbf{W}_K \mathbf{x}_b$ yields
+\begin{align}
+\Delta A^{\mathrm{APE}}
+&=
+\Big|
+\mathbf{x}_a^\top \mathbf{W}_Q^\top \mathbf{W}_K (\mathbf{p}_{b+k}-\mathbf{p}_b)
++
+(\mathbf{p}_{a+k}-\mathbf{p}_a)^\top \mathbf{W}_Q^\top \mathbf{W}_K \mathbf{x}_b
+\notag\\
+&\qquad\qquad
++
+\mathbf{p}_{a+k}^\top \mathbf{W}_Q^\top \mathbf{W}_K \mathbf{p}_{b+k}
+-
+\mathbf{p}_a^\top \mathbf{W}_Q^\top \mathbf{W}_K \mathbf{p}_b
+\Big|.
+\end{align}
+
+Introduce $\mathbf{u} := \mathbf{p}_{a+k}$ and $\mathbf{v} := \mathbf{p}_{b+k}$, and define
+\begin{align}
+S(\mathbf{u},\mathbf{v})
+&:=
+\mathbf{u}^\top \mathbf{W}_Q^\top \mathbf{W}_K \mathbf{v}
++
+\mathbf{x}_a^\top \mathbf{W}_Q^\top \mathbf{W}_K \mathbf{v}
++
+\mathbf{u}^\top \mathbf{W}_Q^\top \mathbf{W}_K \mathbf{x}_b
+\notag\\
+&\qquad
+-
+\Big(
+\mathbf{x}_a^\top \mathbf{W}_Q^\top \mathbf{W}_K \mathbf{p}_b
++
+\mathbf{p}_a^\top \mathbf{W}_Q^\top \mathbf{W}_K \mathbf{x}_b
++
+\mathbf{p}_a^\top \mathbf{W}_Q^\top \mathbf{W}_K \mathbf{p}_b
+\Big).
+\end{align}
+Then perfect cancellation would require $S(\mathbf{u},\mathbf{v}) = 0$.
+
+The leading term of $S$ is the bilinear form
+\begin{equation}
+\mathbf{u}^\top \mathbf{W}_Q^\top \mathbf{W}_K \mathbf{v}
+=
+\sum_{i=1}^d \sum_{j=1}^d
+u_i (\mathbf{W}_Q^\top \mathbf{W}_K)_{ij} v_j.
+\end{equation}
+Since $\mathbf{W}_Q^\top \mathbf{W}_K \neq \mathbf{0}$, this is a nontrivial polynomial in $(\mathbf{u},\mathbf{v}) \in \mathbb{R}^{2d}$. Therefore by the properties of real algebraic geometry \citep{mityagin2020zeroset}, the zero set
+\begin{equation}
+\{(\mathbf{u},\mathbf{v}) \in \mathbb{R}^{2d} : S(\mathbf{u},\mathbf{v}) = 0\}
+\end{equation}
+is a proper algebraic variety and has Lebesgue measure zero.
+
+This zero set contains exact degeneracies such as position embeddings with period $k$ ($\mathbf{p}_{t+k}=\mathbf{p}_t$, so that $\mathbf{u}=\mathbf{p}_a$ and $\mathbf{v}=\mathbf{p}_b$) and position differences $\mathbf{p}_{a+k}-\mathbf{p}_a$ and $\mathbf{p}_{b+k}-\mathbf{p}_b$ in the null spaces of $\mathbf{W}_K^\top \mathbf{W}_Q$ and $\mathbf{W}_Q^\top \mathbf{W}_K$, respectively. Under the genericity assumption of the lemma, $(\mathbf{u},\mathbf{v})$ lies outside this measure-zero set almost surely. Hence
+\begin{equation}
+\Delta A^{\mathrm{APE}} > 0
+\qquad \text{almost surely}.
+\end{equation}
+\end{proof}
+
+\subsection{RoPE Equivariance under Sequence Translation}
+\label{app:proof-rope-equivariance}
+
+We provide the RoPE invariance argument used in the proof of Theorem~\ref{thm:lipschitz_gap}. Under the translation operator $\mathcal{T}_k$, the local attention kernel of RoPE is invariant: $\Delta A^{\mathrm{RoPE}} = 0$.
+
+\begin{proof}
+Let $\mathbf{x}_a,\mathbf{x}_b$ be translated from indices $a,b$ to $a+k,b+k$. The translated RoPE kernel is
+\begin{align}
+\widetilde{A}_{a,b}^{\mathrm{RoPE}}
+&=
+\mathbf{x}_a^\top \mathbf{W}_Q^\top
+\mathbf{R}_\Theta^{(b+k)-(a+k)}
+\mathbf{W}_K \mathbf{x}_b \\
+&=
+\mathbf{x}_a^\top \mathbf{W}_Q^\top
+\mathbf{R}_\Theta^{b-a}
+\mathbf{W}_K \mathbf{x}_b \\
+&=
+A_{a,b}^{\mathrm{RoPE}}.
+\end{align}
+Therefore
+\begin{equation}
+\Delta A^{\mathrm{RoPE}}
+=
+\left|
+\widetilde{A}_{a,b}^{\mathrm{RoPE}} - A_{a,b}^{\mathrm{RoPE}}
+\right|
+=
+0.
+\end{equation}
+\end{proof}
+
+\subsection{Details of Assumption~\ref{assum:ar_sensitivity}}
+\label{app:assumption-smoothness}
+
+We expand Assumption~\ref{assum:ar_sensitivity}, which is used in the proof of Theorem~\ref{thm:lipschitz_gap}.
+
+\textbf{(i) Global smoothness.}
+The base reasoning task admits an intrinsic structural smoothness scale satisfying $K_{\mathrm{base}} = \mathcal{O}(1/T_{\max})$. Because RoPE preserves relative position information exactly under sequence translations, it inherits this smoothness scale: $K_{f_{\mathrm{RoPE}}} \le \mathcal{O}(1/T_{\max})$.
+
+\textbf{(ii) Autoregressive sensitivity and fragile logit margin.} Let $f_{\mathrm{APE}} \in \mathcal{F}_{L,m,\mathrm{APE}}$. In formal combinatorial planning, generating a sequence operates as a deterministic Markov decision process. We assume that structurally critical routing steps (e.g., recursive backtracking steps in deep subtrees) exhibit a fragile logit margin. Let $\Delta_{\mathrm{margin}} > 0$ denote the minimal pre-softmax logit separation required between the Bayes-optimal routing token $a^\star$ and competing incorrect tokens. For out-of-distribution reasoning trajectories with deep hierarchical structures, we assume this margin shrinks ($\Delta_{\mathrm{margin}} \to 0^+$). Consequently, once the margin falls below the disruption ($\Delta_{\mathrm{margin}} < \Delta A$, with $\Delta A > 0$ induced by APE translations; Lemma~\ref{lemma:ape_shattering}), the deterministic greedy decoding process selects an incorrect subtree. This precludes reaching the target state, bounding the expected structural risk variation below by the deterministic separation margin:
+\begin{equation}
+|\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{\chi}') - \mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{\chi})| \ge \gamma, \qquad \gamma := 1 - \frac{1}{|\mathcal{V}|} > 0.
+\end{equation}
+
+\paragraph{Routing separation under deterministic decoding.}
+Let $a^\star(z)$ denote the Bayes-optimal routing action at the critical
+transition of trajectory $z$, and let
+\[
+a_f(z) := \arg\max_{a\in\mathcal V} p_f(a\mid h_z)
+\]
+denote the action selected by the model under greedy decoding, where $h_z$ is the prefix of the model's own greedy trace for the problem $x_{\mathrm{init}}^{(z)}$ up to that transition. Assumption~\ref{assum:ar_sensitivity} postulates that, at a structurally critical transition, the APE-induced
+coordinate perturbation changes the selected routing action away from the Bayes-optimal
+action,
+\[
+a_f(z') \neq a^\star(z'),
+\]
+on problems $z'$ whose reference searches map near $\boldsymbol{\chi}'=\Phi(\mathcal T_k z)$ (see the next paragraph). This routing
+deviation sends the autoregressive process into an incorrect subtree and prevents
+the generated trajectory for $z'$ from reaching the target state. Here an incorrect subtree means a routing error after which the model's own trace reports no valid path to the target within the $512$-token generation budget. Because the scorer gives no partial credit (it checks the path that the trace reports to the target; Appendix~\ref{app:reproducibility}), the zero-one loss on $z'$ is then $1$. Hence the induced
+structural risk changes by a constant amount independent of $T_{\max}$:
+\begin{equation}
+\left|
+\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{\chi}')
+-
+\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{\chi})
+\right|
+\ge
+\gamma,
+\qquad
+\gamma := 1-\frac{1}{|\mathcal V|}>0.
+\end{equation}
+The constant $1-1/|\mathcal V|$ is the error rate of uniform guessing over $\mathcal V$.
+Under exact-match evaluation the jump can be as large as $1$; for
+Theorem~\ref{thm:lipschitz_gap} it suffices that $\gamma>0$ is independent of
+$T_{\max}$.
+
+\paragraph{Assumption~\ref{assum:ar_sensitivity} as a condition on $\mathcal{L}_f$.}
+The loss $\ell(f,z)$ depends on $z$ only through the problem $x_{\mathrm{init}}^{(z)}$ and its target (Appendix~\ref{app:risk}), while $\mathcal{T}_k$ acts on $y_{\mathrm{search}}$, so $\ell(f,\mathcal{T}_k z)=\ell(f,z)$. Assumption~\ref{assum:ar_sensitivity} therefore constrains how the structural risk function $\mathcal{L}_f$ varies between the neighboring points $\boldsymbol{\chi}=\Phi(z)$ and $\boldsymbol{\chi}'=\Phi(\mathcal{T}_k z)$ of $\mathcal{X}$. On other problems $z'$ whose reference searches map near $\boldsymbol{\chi}'$, an APE model places a familiar sub-search of its own trace at a shifted absolute position and thus undergoes the kernel change of Lemma~\ref{lemma:ape_shattering}; under Assumption~\ref{assum:ar_sensitivity}(ii), this change yields the jump $\gamma$.
+
+\subsection{Proof of Theorem~\ref{thm:lipschitz_gap}}
+\label{app:proof-lipschitz-gap}
+
+For completeness, we restate Theorem~\ref{thm:lipschitz_gap}, which holds under Assumption~\ref{assum:ar_sensitivity}.
+For sufficiently large $T_{\max}$, let 
+$f_{\mathrm{APE}} \in \mathcal{F}_{L,m,\mathrm{APE}}$ and 
+$f_{\mathrm{RoPE}} \in \mathcal{F}_{L,m,\mathrm{RoPE}}$ 
+be two matched autoregressive Transformer models that differ only in their positional encoding scheme. Then
+\begin{equation}
+K_{f_{\mathrm{RoPE}}} = \mathcal{O}(1/T_{\max}),
+\qquad
+K_{f_{\mathrm{APE}}} = \Omega(1),
+\end{equation}
+and hence $K_{f_{\mathrm{RoPE}}} \ll K_{f_{\mathrm{APE}}}$.
+
+\begin{proof}
+By definition,
+\begin{equation}
+K_{f_{\mathrm{APE}}}
+=
+\sup_{\boldsymbol{u}\neq \boldsymbol{v}\in\mathcal{X}}
+\frac{
+|\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{u})-\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{v})|
+}{
+d_{\mathcal{X}}(\boldsymbol{u},\boldsymbol{v})
+}.
+\end{equation}
+Let $z \in \mathcal{Z}$ be a trajectory whose translated sub-trajectory under $\mathcal{T}_k$ contains a critical routing step in the sense of Assumption~\ref{assum:ar_sensitivity}(ii), and let
+\begin{equation}
+\boldsymbol{\chi} = \Phi(z),
+\qquad
+\boldsymbol{\chi}' = \Phi(\mathcal{T}_k(z)).
+\end{equation}
+By Definition~\ref{def:translation_operator}, the operator $\mathcal{T}_k$ inserts an inert node immediately before a local reasoning sub-trajectory. By Lemma~\ref{lemma:ape_shattering}, this induces a nonzero local APE attention perturbation almost surely. Assumption~\ref{assum:ar_sensitivity}(ii), read as a condition on $\mathcal{L}_f$ (last paragraph of Appendix~\ref{app:assumption-smoothness}), then yields
+\begin{equation}
+|\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{\chi}')-\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{\chi})|
+\ge \gamma.
+\end{equation}
+Hence
+\begin{equation}
+K_{f_{\mathrm{APE}}}
+\ge
+\frac{
+|\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{\chi}')-\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{\chi})|
+}{
+d_{\mathcal{X}}(\boldsymbol{\chi},\boldsymbol{\chi}')
+}
+\ge
+\frac{\gamma}{\delta}
+\ge
+\frac{\gamma}{C_\delta}
+=
+\Omega(1).
+\end{equation}
+
+Assumption~\ref{assum:ar_sensitivity}(i) gives
+\begin{equation}
+K_{f_{\mathrm{RoPE}}} \le \mathcal{O}(1/T_{\max}).
+\end{equation}
+Therefore, for sufficiently large $T_{\max}$,
+\begin{equation}
+K_{f_{\mathrm{RoPE}}} \ll K_{f_{\mathrm{APE}}}.
+\end{equation}
+\end{proof}
+
+\section{Proofs of Capacity Bounds}
+\label{app:capacity-results}
+
+\subsection{Structural Capacity Analysis}
+\label{app:structural-capacity}
+
+\begin{definition}[Bayes-Optimal Structural Risk] \label{def:bayes-structural-risk} The Bayes-optimal structural risk function is defined by \begin{equation} \mathcal{L}^*(\boldsymbol{\chi}) := \inf_{h} \mathbb{E}_{z \sim \mu_T}\!\left[\ell(h,z)\mid \Phi(z)=\boldsymbol{\chi}\right], \qquad \boldsymbol{\chi}\in\mathcal{X}. \end{equation} \end{definition} \begin{definition}[Barron Space] \label{def:barron-space} Let $\mathcal{X}\subset\mathbb{R}^{12}$ be compact. The Barron space $\mathcal{H}_{\mathrm{Barron}}(\mathcal{X})$ consists of continuous functions $g:\mathcal{X}\to\mathbb{R}$ whose Fourier transform $\hat g(\boldsymbol{\omega})$ satisfies \begin{equation} \int_{\mathbb{R}^{12}} \|\boldsymbol{\omega}\|_1 \,|\hat g(\boldsymbol{\omega})| \,d\boldsymbol{\omega} <\infty. \end{equation} The infimum of this quantity defines the Barron norm $\|g\|_{\mathcal{B}}$ \citep{Barron1993}. \end{definition}
+\begin{assumption}[Tsybakov Margin Condition]
+\label{ass:tsybakov-margin}
+There exist constants $C > 0$ and $\alpha \ge 0$ such that for the conditional label probability 
+$\eta(\boldsymbol{\chi}) := \mathbb{P}_{z\sim\mu_T}(\ell(f,z)=1 \mid \Phi(z)=\boldsymbol{\chi})$,
+\[
+\nu_T\big(|\eta(\boldsymbol{\chi}) - 1/2| \le t\big) 
+\le C t^\alpha, \quad \forall t > 0.
+\]
+\end{assumption}
+Assumption~\ref{ass:tsybakov-margin} is a standard condition for relating the $L_1(\nu_T)$ approximation error of a structural risk function to the zero-one risk \citep{tsybakov2004optimal}. The proof of Lemma~\ref{lemma:width_capacity} (Appendix~\ref{app:proof-width-capacity}) measures this error against the pointwise Bayes risk $\mathcal{L}^*$ (Definition~\ref{def:bayes-structural-risk}), which gives the relation directly, with constant $\frac12$ and residual $\frac{\epsilon}{2}$, so this proof rests on Assumptions~\ref{assum:epsilon_relaxed} and~\ref{ass:width-capacity}.
+
+\begin{assumption}[Structural Capacity Mapping and Approximation Limit] \label{ass:width-capacity} We assume the following. \textbf{(i) Barron regularity of the target risk.} The Bayes-optimal structural risk belongs to the Barron space: \begin{equation} \mathcal{L}^* \in \mathcal{H}_{\mathrm{Barron}}(\mathcal{X}), \qquad 0 < \|\mathcal{L}^*\|_{\mathcal{B}} < \infty. \end{equation} \textbf{(ii) Finite-width structural hypothesis class.} For each autoregressive Transformer $f \in \mathcal{F}_{L,m,\mathrm{PE}}$, the induced structural risk function $\mathcal{L}_f$ belongs to a width-constrained hypothesis class \begin{equation} \mathcal{L}_f \in \mathcal{H}_m \subset \mathcal{H}_{\mathrm{Barron}}(\mathcal{X}), \end{equation} where $\mathcal{H}_m$ denotes a structural approximation class whose capacity is controlled by the internal representation width $m$. 
+
+\textbf{(iii) Width-limited approximation lower bound.} There exists a constant $C_{\mathcal{B}}>0$, independent of $m$, such that \begin{equation} \inf_{g \in \mathcal{H}_m} \int_{\mathcal{X}} |g(\boldsymbol{\chi})-\mathcal{L}^*(\boldsymbol{\chi})| \,d\nu_T(\boldsymbol{\chi}) \ge \frac{C_{\mathcal{B}}}{\sqrt{m}}. \end{equation} This scaling mirrors the $\mathcal{O}(m^{-1/2})$ upper rate for Barron-type function classes \citep{Barron1993}. \end{assumption}
+
+Assumption~\ref{ass:width-capacity} formalizes the idea that projecting discrete trajectories into $\mathcal{X}$ induces a regression problem whose best attainable predictor cannot be approximated arbitrarily well at fixed width.
+
+\subsubsection{Proof of Lemma~\ref{lemma:width_capacity}}
+\label{app:proof-width-capacity}
+
+\begin{proof}
+By Assumption~\ref{assum:epsilon_relaxed}, the true expected zero-one risk is bounded by the structural risk:
+\begin{equation}
+\mathcal{R}_{\mu_T}(f) \ge \int_{\mathcal{X}} \mathcal{L}_f(\boldsymbol{\chi}) \,d\nu_T(\boldsymbol{\chi}) - \epsilon.
+\end{equation}
+
+Since $\mathcal{L}^*$ is the pointwise Bayes risk, $\int_{\mathcal{X}}\mathcal{L}^*\,d\nu_T\le\mathcal{R}_{\mu_T}(f)$; with the bound above and the inequality $|\mathcal{L}_f-\mathcal{L}^*|\le\mathcal{L}_f+\mathcal{L}^*$, this gives $\mathcal{R}_{\mu_T}(f)\ge\frac12\int_{\mathcal{X}}|\mathcal{L}_f-\mathcal{L}^*|\,d\nu_T-\frac{\epsilon}{2}$.
+
+Since $\mathcal{L}_f \in \mathcal{H}_m$, Assumption~\ref{ass:width-capacity}(iii) (the minimax-hardness of $\mathcal{L}^*$) implies that recovering $\mathcal{L}^*$ incurs an absolute $L_1$ error of at least $C_{\mathcal{B}}\, m^{-1/2}$. %
+ Thus:
+\begin{equation}
+\int_{\mathcal{X}} \left| \mathcal{L}_f(\boldsymbol{\chi}) - \mathcal{L}^*(\boldsymbol{\chi}) \right| \,d\nu_T(\boldsymbol{\chi}) \ge \frac{C_{\mathcal{B}}}{\sqrt{m}}.
+\end{equation}
+Defining $C_{\mathrm{width}} := C_{\mathcal{B}}/2$ and substituting this back yields $\mathcal{R}_{\mu_T}(f) \ge \frac{C_{\mathrm{width}}}{\sqrt{m}} - \epsilon$.
+\end{proof}
+
+\subsection{Depth Bottleneck via Dyck-Type Reduction}
+\label{app:depth-bound}
+
+We now formalize the depth bottleneck of sequential backtracking in more detail. The central idea is that nested backtracking induces a Dyck-type dependency whose effective computational depth scales with the structural depth coordinate $\chi_1$.
+
+\subsubsection{DFS-to-Dyck Encoding}
+\label{app:dfs-dyck}
+
+We give the full construction for Lemma~\ref{lemma:dyck_homomorphism}. Let $k$ denote the maximum branching factor of the search tree. We define the search transition alphabet
+\begin{equation}
+\Sigma_{\mathrm{search}}
+:=
+\{\delta_{\mathrm{down}}^{(1)},\dots,\delta_{\mathrm{down}}^{(k)}\}
+\cup
+\{\delta_{\mathrm{up}}^{(1)},\dots,\delta_{\mathrm{up}}^{(k)}\}
+\cup
+\{\omega_{\mathrm{eval}}\},
+\end{equation}
+where $\delta_{\mathrm{down}}^{(c)}$ denotes expansion to the $c$-th child, $\delta_{\mathrm{up}}^{(c)}$ denotes backtracking from the $c$-th child, and $\omega_{\mathrm{eval}}$ denotes terminal evaluation.
+
+Let $\Sigma_{\mathrm{Dyck}}=\{(_1, )_1,\dots,(_k, )_k\}$, and let $\mathcal{D}_k \subset \Sigma_{\mathrm{Dyck}}^*$ denote the Dyck-$k$ language \citep{Strobl_2024}. Define the map
+\begin{equation}
+\psi:\Sigma_{\mathrm{search}}^*\to\Sigma_{\mathrm{Dyck}}^*
+\end{equation}
+pointwise by
+\begin{equation}
+\psi(\delta_{\mathrm{down}}^{(c)}) = (_c,
+\qquad
+\psi(\delta_{\mathrm{up}}^{(c)}) = )_c,
+\qquad
+\psi(\omega_{\mathrm{eval}})=\varepsilon.
+\end{equation}
+Since $\psi$ preserves concatenation, i.e., $\psi(x\oplus y)=\psi(x)\oplus\psi(y)$ for all $x,y\in\Sigma_{\mathrm{search}}^*$, it is a monoid homomorphism.
+
+When a valid trajectory $z$ is read as the walk on the search tree through its successively visited nodes, with each transition expanded into parent-child moves (for DFS these are exactly the push and pop moves of backtracking), its image $\psi(z)$ records this nested push-pop structure as a prefix of a balanced-parenthesis string, which is balanced if and only if the walk returns to the root. In particular, the maximum nesting depth of $\psi(z)$ equals the maximum depth reached, i.e., $\chi_1-1$ under the identifier convention of Appendix~\ref{app:trajectory-space}.
+
+\subsubsection{Complexity-Theoretic Interpretation and Finite Precision}
+\label{app:depth-complexity}
+
+Consider an autoregressive step $t$ at which the next token corresponds to a backtracking move $v_{t+1}=\delta_{\mathrm{up}}^{(c)}$. To emit this token correctly, the model must identify the most recent unmatched opening transition associated with the same branch type $c$. Under the encoding above, this is equivalent to resolving a nested Dyck-type dependency over the serialized search history.
+
+Parsing Dyck-language dependencies relies on maintaining a stack counter within the continuous hidden representations. For a Transformer using bounded numerical precision with $p$ bits (e.g., $p=16$ for bfloat16), the capacity to reliably encode distinguishable nested states is information-theoretically constrained by $\mathcal{O}(2^p)$. As shown by \citet{Hahn_2020}, self-attention cannot model hierarchical languages unless the number of layers or heads grows with the input length; we therefore treat the evaluation of a nested structure as requiring sequential reductions across the layers. 
+
+We formalize this depth requirement by letting the maximum resolvable tree depth $\chi_1$ scale linearly with the physical layer depth $L$ (Assumption~\ref{ass:implicit-complexity} below). The truncation constant $\alpha_{\mathrm{circ}}:=c^{-1}$ defined there, which may depend on the task and on the numerical precision $p$, sets the maximum parsable tree depth per physical layer.
+
+\begin{assumption}[Implicit State-Transition Complexity via Dyck Structure]
+\label{ass:implicit-complexity}
+There exists a precision-dependent constant $c>0$ such that resolving a backtracking transition of structural depth $\chi_1$ requires implicit computational depth at least
+\begin{equation}
+D_{\mathrm{implicit}} \ge c\,\chi_1.
+\end{equation}
+Equivalently, defining $\alpha_{\mathrm{circ}}:=c^{-1}$, trajectories satisfying $\chi_1>\alpha_{\mathrm{circ}}L$ lie strictly beyond the implicit computational depth available within a single autoregressive forward pass. On these trajectories every $f\in\mathcal{F}_{L,m,\mathrm{PE}}$ has structural risk at least that of uniform guessing over $\mathcal{V}$: $\mathcal{L}_f(\boldsymbol{\chi})\ge 1-1/|\mathcal{V}|$ whenever $\chi_1>\alpha_{\mathrm{circ}}L$.
+\end{assumption}
+
+\subsubsection{Failure Beyond the Implicit Depth Threshold}
+\label{app:depth-threshold-failure}
+
+Define the severed region
+\begin{equation}
+\mathcal{X}_{\mathrm{severed}}
+:=
+\left\{
+\boldsymbol{\chi}\in\mathcal{X}:\chi_1>\alpha_{\mathrm{circ}}L
+\right\}.
+\end{equation}
+For trajectories in $\mathcal{X}_{\mathrm{severed}}$, the model lacks sufficient implicit depth to resolve the required backtracking dependency. In this regime, the relevant routing decision can no longer be reliably distinguished from competing valid outputs, and Assumption~\ref{ass:implicit-complexity} lower-bounds the resulting structural risk by the uniform-guessing baseline
+\begin{equation}
+C_{\mathrm{depth}}:=1-\frac{1}{|\mathcal{V}|}.
+\end{equation}
+
+This motivates the truncation indicator
+\begin{equation}
+P_{\mathrm{implicit}}(\boldsymbol{\chi};L,\alpha_{\mathrm{circ}})
+:=
+\mathbb{I}_{(\alpha_{\mathrm{circ}}L,\infty)}(\chi_1),
+\end{equation}
+which records whether a structural state lies beyond the implicit depth threshold.
+
+\subsubsection{Proof of Lemma~\ref{lemma:depth_bottleneck}}
+\label{app:proof-depth-bottleneck}
+
+For completeness, we restate Lemma~\ref{lemma:depth_bottleneck}, which holds under Assumptions~\ref{assum:epsilon_relaxed} and~\ref{ass:implicit-complexity}. Let $|\mathcal{V}|\ge2$, and define $C_{\mathrm{depth}}:=1-\frac{1}{|\mathcal{V}|}\in(0,1)$. Then for any autoregressive Transformer hypothesis $f\in\mathcal{F}_{L,m,\mathrm{PE}}$,
+\begin{equation}
+\mathcal{R}_{\mu_T}(f)
+\ge
+C_{\mathrm{depth}}
+\int_{\mathcal{X}}
+P_{\mathrm{implicit}}(\boldsymbol{\chi};L,\alpha_{\mathrm{circ}})
+\,d\nu_T(\boldsymbol{\chi})
+-\epsilon.
+\end{equation}
+
+\begin{proof}
+For $\boldsymbol{\chi}\in\mathcal{X}_{\mathrm{severed}}$, the required implicit routing depth exceeds the available physical depth $L$, and Assumption~\ref{ass:implicit-complexity} lower-bounds the structural risk on this region by
+\begin{equation}
+\mathcal{L}_f(\boldsymbol{\chi})\ge C_{\mathrm{depth}}.
+\end{equation}
+It follows that
+\begin{align}
+\int_{\mathcal{X}}
+\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi})
+&=
+\int_{\mathcal{X}_{\mathrm{severed}}}
+\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi})
++
+\int_{\mathcal{X}\setminus\mathcal{X}_{\mathrm{severed}}}
+\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi}) \\
+&\ge
+\int_{\mathcal{X}_{\mathrm{severed}}}
+\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi}) \\
+&\ge
+C_{\mathrm{depth}}\,
+\nu_T(\mathcal{X}_{\mathrm{severed}}).
+\end{align}
+Since
+\begin{equation}
+\nu_T(\mathcal{X}_{\mathrm{severed}})
+=
+\int_{\mathcal{X}}
+P_{\mathrm{implicit}}(\boldsymbol{\chi};L,\alpha_{\mathrm{circ}})
+\,d\nu_T(\boldsymbol{\chi}),
+\end{equation}
+we obtain
+\begin{equation}
+\int_{\mathcal{X}}
+\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi})
+\ge
+C_{\mathrm{depth}}
+\int_{\mathcal{X}}
+P_{\mathrm{implicit}}(\boldsymbol{\chi};L,\alpha_{\mathrm{circ}})
+\,d\nu_T(\boldsymbol{\chi}).
+\end{equation}
+Finally, Assumption~\ref{assum:epsilon_relaxed} gives
+\begin{equation}
+\mathcal{R}_{\mu_T}(f)
+\ge
+\int_{\mathcal{X}}
+\mathcal{L}_f(\boldsymbol{\chi})\,d\nu_T(\boldsymbol{\chi})
+-\epsilon,
+\end{equation}
+which yields the claim.
+\end{proof}
+
+\subsubsection{Architecture-Invariance of the Physical Depth Limit}
+\label{lemma:physical_depth_limit}
+
+\begin{lemma}[Architecture-Invariance of the Physical Depth Limit]
+\label{lem:physical-depth-limit}
+The scalar $\alpha_{\mathrm{circ}}$ is determined by the implicit computational requirement of the backtracking problem and is therefore independent of the positional encoding scheme. In particular, $\alpha_{\mathrm{APE}}=\alpha_{\mathrm{RoPE}}=\alpha_{\mathrm{circ}}$.
+\end{lemma}
+
+\begin{proof}
+A single autoregressive forward pass applies exactly $L$ sequential layers, regardless of whether the positional encoding is APE or RoPE. RoPE preserves relative position information (Appendix~\ref{app:proof-rope-equivariance}) but adds no sequential computational steps beyond the available physical depth. Therefore the same implicit depth threshold governs both positional-encoding choices.
+\end{proof}
+
+\section{Proof of the Main Theorem and Corollaries}
+\label{app:main-results}
+
+\subsection{Proof of Theorem~\ref{thm:unified_bound}}
+\label{app:proof-main-theorem}
+
+For completeness, we restate Theorem~\ref{thm:unified_bound}, which holds under Assumptions~\ref{assum:epsilon_relaxed}, \ref{ass:width-capacity} and~\ref{ass:implicit-complexity} and the Lipschitz continuity of $\mathcal{L}_f$ assumed in Lemma~\ref{lemma:error_decomposition}.
+For any autoregressive Transformer hypothesis $f \in \mathcal{F}_{L,m,\mathrm{PE}}$, the target risk satisfies
+\begin{equation}
+\mathcal{R}_{\mu_T}(f)
+\ge
+\max\Bigg\{
+\begin{aligned}
+&\frac{C_{\mathrm{width}}}{\sqrt{m}}-\epsilon,\;
+C_{\mathrm{depth}}
+\int_{\mathcal{X}}
+P_{\mathrm{implicit}}(\boldsymbol{\chi};L,\alpha_{\mathrm{circ}})
+\,d\nu_T(\boldsymbol{\chi})
+-\epsilon,\\
+&\quad\mathcal{R}_{\mu_S}(f)-K_{f,\mathrm{PE}}W_1(\nu_S,\nu_T)-2\epsilon
+\end{aligned}
+\Bigg\}.
+\end{equation}
+Moreover, $\mathcal{R}_{\mu_T}(f)\le\mathcal{R}_{\mu_S}(f)+K_{f,\mathrm{PE}}W_1(\nu_S,\nu_T)+2\epsilon$.
+
+\begin{proof}
+
+Lemma~\ref{lemma:width_capacity} gives $\mathcal{R}_{\mu_T}(f) \ge \frac{C_{\mathrm{width}}}{\sqrt{m}}-\epsilon$.
+Lemma~\ref{lemma:depth_bottleneck} gives $\mathcal{R}_{\mu_T}(f) \ge C_{\mathrm{depth}} \int_{\mathcal{X}} P_{\mathrm{implicit}}(\boldsymbol{\chi};L,\alpha_{\mathrm{circ}}) \,d\nu_T(\boldsymbol{\chi}) -\epsilon$.
+Finally, Lemma~\ref{lemma:error_decomposition} implies $\left| \mathcal{R}_{\mu_T}(f)-\mathcal{R}_{\mu_S}(f) \right| \le K_{f,\mathrm{PE}}W_1(\nu_S,\nu_T)+2\epsilon$, and therefore $\mathcal{R}_{\mu_T}(f) \ge \mathcal{R}_{\mu_S}(f)-K_{f,\mathrm{PE}}W_1(\nu_S,\nu_T)-2\epsilon$. All three lower bounds hold for every $f \in \mathcal{F}_{L,m,\mathrm{PE}}$, so $\mathcal{R}_{\mu_T}(f)$ is bounded below by their maximum. The same inequality from Lemma~\ref{lemma:error_decomposition} gives the upper bound.
+\end{proof}
+
+\subsection{Proof of Corollary~\ref{cor:ape_vs_rope}}
+\label{app:proof-cor-ape-rope}
+
+For completeness, we restate Corollary~\ref{cor:ape_vs_rope}.
+Assume the source risk satisfies $\mathcal{R}_{\mu_S}(f_{\mathrm{RoPE}})=\epsilon_{\mathrm{train}}\approx 0$, and suppose the target shift satisfies $W_1(\nu_S,\nu_T)=\Omega(T_{\max})$. Then the RoPE target risk degrades at most proportionally to the normalized shift: $\mathcal{R}_{\mu_T}(f_{\mathrm{RoPE}}) \le \epsilon_{\mathrm{train}} + C_{\mathrm{smooth}}\,W_1(\nu_S,\nu_T)/T_{\max} + 2\epsilon \le \epsilon_{\mathrm{train}} + C_{\mathrm{RoPE}} + 2\epsilon$, where $K_{f_{\mathrm{RoPE}}}\le C_{\mathrm{smooth}}/T_{\max}$ (Theorem~\ref{thm:lipschitz_gap}) and $C_{\mathrm{RoPE}}:=C_{\mathrm{smooth}}\sup_{T_{\max}}\operatorname{diam}(\mathcal{X})/T_{\max}<\infty$ does not depend on $T_{\max}$.
+
+In contrast, suppose there exists a measurable subset $\mathcal{X}_{\mathrm{shift}}\subset\mathcal{X}$ such that $\nu_T(\mathcal{X}_{\mathrm{shift}})=p_{\mathrm{shift}}>0$ and $\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{\chi})\ge \gamma$ for all $\boldsymbol{\chi}\in\mathcal{X}_{\mathrm{shift}}$, where $\gamma=\Omega(1)$. Then $\mathcal{R}_{\mu_T}(f_{\mathrm{APE}}) \ge \gamma p_{\mathrm{shift}}-\epsilon$. In particular, if $\epsilon \ll \gamma p_{\mathrm{shift}}$, the APE target risk admits a non-vanishing lower bound.
+
+\begin{proof}
+For RoPE, Lemma~\ref{lemma:error_decomposition} gives
+\begin{equation}
+\mathcal{R}_{\mu_T}(f_{\mathrm{RoPE}})
+\le
+\mathcal{R}_{\mu_S}(f_{\mathrm{RoPE}})
++
+K_{f_{\mathrm{RoPE}}}W_1(\nu_S,\nu_T)
++
+2\epsilon.
+\end{equation}
+By Theorem~\ref{thm:lipschitz_gap}, $K_{f_{\mathrm{RoPE}}}\le C_{\mathrm{smooth}}/T_{\max}$, so $K_{f_{\mathrm{RoPE}}}W_1(\nu_S,\nu_T)\le C_{\mathrm{smooth}}\,W_1(\nu_S,\nu_T)/T_{\max}$. Since $W_1(\nu_S,\nu_T)$ is bounded above by $\operatorname{diam}(\mathcal{X})=\Theta(T_{\max})$, this term is at most $C_{\mathrm{RoPE}}$. Substituting \(\mathcal{R}_{\mu_S}(f_{\mathrm{RoPE}})=\epsilon_{\mathrm{train}}\) gives both stated bounds.
+
+For APE, Assumption~\ref{assum:epsilon_relaxed} yields
+\begin{equation}
+\mathcal{R}_{\mu_T}(f_{\mathrm{APE}})
+\ge
+\int_{\mathcal{X}}
+\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{\chi})
+\,d\nu_T(\boldsymbol{\chi})
+-\epsilon.
+\end{equation}
+Restricting the domain of integration to $\mathcal{X}_{\mathrm{shift}}$ and using the assumed lower bound on $\mathcal{L}_{f_{\mathrm{APE}}}$ gives
+\begin{align}
+\mathcal{R}_{\mu_T}(f_{\mathrm{APE}})
+&\ge
+\int_{\mathcal{X}_{\mathrm{shift}}}
+\mathcal{L}_{f_{\mathrm{APE}}}(\boldsymbol{\chi})
+\,d\nu_T(\boldsymbol{\chi})
+-\epsilon \\
+&\ge
+\int_{\mathcal{X}_{\mathrm{shift}}}
+\gamma\,d\nu_T(\boldsymbol{\chi})
+-\epsilon \\
+&=
+\gamma\,\nu_T(\mathcal{X}_{\mathrm{shift}})-\epsilon \\
+&=
+\gamma p_{\mathrm{shift}}-\epsilon.
+\end{align}
+\end{proof}
+
+\subsection{Proof of Corollary~\ref{cor:deep_is_better}}
+\label{app:proof-cor-deep-better}
+
+For completeness, we restate Corollary~\ref{cor:deep_is_better}.
+Suppose the target measure assigns positive mass to trajectories whose structural depth exceeds the available implicit computation threshold: $p_{\mathrm{deep}} := \nu_T\!( \{\boldsymbol{\chi}\in\mathcal{X}:\chi_1>\alpha_{\mathrm{circ}}L\} ) > 0$. Then the depth bottleneck contributes the non-vanishing lower bound $\mathcal{R}_{\mu_T}(f)\ge C_{\mathrm{depth}}\,p_{\mathrm{deep}}-\epsilon$. In contrast, the width-based term $\frac{C_{\mathrm{width}}}{\sqrt m}-\epsilon$ vanishes as $m\to\infty$. Moreover, if $L \ge \frac{1}{\alpha_{\mathrm{circ}}} \sup_{\boldsymbol{\chi}\in\operatorname{supp}(\nu_T)} \chi_1$, then $\nu_T\!( \{\boldsymbol{\chi}\in\mathcal{X}:\chi_1>\alpha_{\mathrm{circ}}L\} ) = 0$, so the depth bottleneck term is eliminated on the support of $\nu_T$.
+
+\begin{proof}
+By Lemma~\ref{lemma:depth_bottleneck},
+\begin{equation}
+\mathcal{R}_{\mu_T}(f)
+\ge
+C_{\mathrm{depth}}
+\int_{\mathcal{X}}
+P_{\mathrm{implicit}}(\boldsymbol{\chi};L,\alpha_{\mathrm{circ}})
+\,d\nu_T(\boldsymbol{\chi})
+-\epsilon.
+\end{equation}
+Since $P_{\mathrm{implicit}}(\boldsymbol{\chi};L,\alpha_{\mathrm{circ}}) = \mathbb{I}_{(\alpha_{\mathrm{circ}}L,\infty)}(\chi_1)$, we have
+\begin{equation}
+\int_{\mathcal{X}} P_{\mathrm{implicit}}(\boldsymbol{\chi};L,\alpha_{\mathrm{circ}}) \,d\nu_T(\boldsymbol{\chi}) = \nu_T\!( \{\boldsymbol{\chi}\in\mathcal{X}:\chi_1>\alpha_{\mathrm{circ}}L\} ) = p_{\mathrm{deep}},
+\end{equation}
+which gives $\mathcal{R}_{\mu_T}(f)\ge C_{\mathrm{depth}}p_{\mathrm{deep}}-\epsilon$.
+
+On the other hand,
+\begin{equation}
+\lim_{m\to\infty} \left( \frac{C_{\mathrm{width}}}{\sqrt m}-\epsilon \right) = -\epsilon \le 0,
+\end{equation}
+so the width-only contribution cannot sustain a non-vanishing lower bound.
+
+Finally, if $L \ge \frac{1}{\alpha_{\mathrm{circ}}} \sup_{\boldsymbol{\chi}\in\operatorname{supp}(\nu_T)} \chi_1$, then no point in $\operatorname{supp}(\nu_T)$ satisfies $\chi_1>\alpha_{\mathrm{circ}}L$. Hence $\nu_T\!( \{\boldsymbol{\chi}\in\mathcal{X}:\chi_1>\alpha_{\mathrm{circ}}L\} ) = 0$, which eliminates the depth bottleneck term on the target support.
+\end{proof}
+
+\section{Algebraic Equivalence Classes of Positional Encodings}
+\label{app:pe_equivalence}
+
+Our analysis takes Absolute Positional Encoding (APE) and Rotary Position Embedding (RoPE) as representatives of two algebraic equivalence classes. This appendix places ALiBi \citep{press2022trainshorttestlong} and T5 Relative Bias in the shift-invariant class and treats No Positional Encoding (NoPE) \citep{kazemnejad2023impactpositionalencodinglength} at the end.
+
+In the context of the structural Lipschitz gap (Theorem \ref{thm:lipschitz_gap}), the generalizability of an attention mechanism under sequence coordinate translations ($\mathcal{T}_k$) is determined by whether its attention kernel $A_{i,j}$ satisfies shift invariance. Positional encodings partition the architectural hypothesis space into two distinct algebraic equivalence classes:
+
+\textbf{1. Position-Dependent Attention Kernels:} This class contains mechanisms where $A_{i,j}$ depends explicitly on the absolute indices $i$ and $j$. Standard learned APE and sinusoidal encodings belong to this class. As proven in Lemma \ref{lemma:ape_shattering} for learned APE, members of this equivalence class fail to preserve shift invariance, causing the computational graph to differ under translations. Under Assumption~\ref{assum:ar_sensitivity}, this yields a structural Lipschitz constant $K_{f} = \Omega(1)$. 
+
+\textbf{2. Shift-Invariant Attention Mechanisms:} This class contains mechanisms where the attention kernel depends only on the relative distance $i - j$. RoPE, ALiBi, and T5 Relative Bias all satisfy this constraint. Consequently, for any mechanism in this equivalence class, the translation operator yields $\Delta A = 0$. Hence, any relative encoding in this class inherits the baseline structural smoothness $\mathcal{O}(1/T_{\max})$ established in Theorem \ref{thm:lipschitz_gap}.
+
+Finally, No Positional Encoding (NoPE) injects no positional vectors, so its kernel satisfies $\Delta A^{\text{NoPE}} \equiv 0$ trivially, and the model recovers structural routing information implicitly through causal masking. \citet{kazemnejad2023impactpositionalencodinglength} show that such implicit recovery is possible (the first layer can reconstruct absolute positions) and that NoPE length-generalizes on par with or better than explicit encodings in their experiments. Its behavior under translations therefore depends on the positions recovered inside the network.
+
+\section{Estimation of Structural Wasserstein Distances}
+\label{app:w1_estimation}
+
+The theoretical bounds in Theorem~\ref{thm:unified_bound} are stated in terms of the exact Wasserstein-1 distance $W_1(\nu_S,\nu_T)$ between structural pushforward measures. 
+In the empirical analysis, we estimate this quantity from finite samples by solving the exact (unregularized) optimal transport problem between empirical measures. %
+Accordingly, we denote these finite-sample estimates by $\widehat W_{1}$, distinguishing them from the population-level $W_1$.
+
+\subsection{Computational Pipeline}
+
+Let $\hat{\nu}_S$ and $\hat{\nu}_T$ denote the empirical structural measures obtained by sampling trajectories from the source and target distributions and applying the structural projection $\Phi$. 
+The estimation pipeline consists of the following steps.
+
+\paragraph{Joint standardization.}
+The structural coordinates have different numerical scales; for example, the search-volume coordinate $\chi_4$ can be orders of magnitude larger than transition-rate coordinates such as $\chi_5,\chi_6,\chi_7$. 
+To prevent the Euclidean cost from being dominated by large-scale coordinates, we apply Z-score normalization to each coordinate. 
+The normalization statistics are computed once, on the pooled structural vectors of all three measures, so all pairs share one scale and their distances are directly comparable.
+
+\paragraph{Cost matrix construction.}
+For standardized structural vectors $\boldsymbol{u}_i,\boldsymbol{v}_j\in\mathbb{R}^{12}$, we define the empirical cost matrix by
+\begin{equation}
+M_{ij}=\|\boldsymbol{u}_i-\boldsymbol{v}_j\|_2.
+\end{equation}
+For the entropically regularized cross-check below, we additionally rescale the cost matrix as
+\begin{equation}
+\widetilde M_{ij}
+=
+\frac{M_{ij}}{\max_{i,j} M_{ij}+10^{-9}}.
+\end{equation}
+This places the costs of the cross-check in $[0,1]$.
+
+\paragraph{Exact transport.}
+With uniform marginal weights $\mathbf{p}=\mathbf{q}=N^{-1}\mathbf{1}$, we compute $\widehat W_{1}(\hat{\nu}_S,\hat{\nu}_T)=\min_{\mathbf{P}\in\Pi(\mathbf{p},\mathbf{q})}\langle \mathbf{P},\mathbf{M}\rangle_F$ with the network-simplex solver of the Python Optimal Transport library \citep{flamary2021pot}. As a cross-check, the debiased Sinkhorn divergence (Sinkhorn--Knopp with $\lambda=0.1$ on the rescaled cost $\widetilde{\mathbf{M}}$, \citealp{cuturi2013sinkhorndistanceslightspeedcomputation}) preserves the separation reported below (within-measure $<$ BFS--MIXED $<$ BFS--DFS); the debiasing removes the entropic bias that dominates the uncorrected regularized cost at this sample size.
+
+\paragraph{Subsampling.}
+Each training measure contains 500,000 trajectories, so building the all-pairs cost matrix on a full measure is expensive. 
+For each distribution, we first form a candidate pool of 20,000 trajectories and then sample $N=2{,}000$ trajectories without replacement for each pairwise distance computation. 
+We repeat this procedure over $10$ independent subsamples with fixed seeds and report the mean $\pm$ standard deviation.
+
+\subsection{Estimates and Interpretation}
+
+ 
+Across the $10$ subsamples, the within-measure comparison (two disjoint samples of the same measure) remains small, while the MIXED and DFS target distributions produce much larger shifts:
+\begin{gather*}
+\widehat W_{1}(\hat{\nu}_{BFS},\hat{\nu}_{BFS}) = 0.19 \pm 0.06,\qquad
+\widehat W_{1}(\hat{\nu}_{BFS},\hat{\nu}_{MIXED}) = 1.38 \pm 0.05,\\
+\widehat W_{1}(\hat{\nu}_{BFS},\hat{\nu}_{DFS}) = 2.97 \pm 0.05,
+\end{gather*}
+and $\widehat W_{1}(\hat{\nu}_{DFS},\hat{\nu}_{DFS}) = 0.28 \pm 0.05$, $\widehat W_{1}(\hat{\nu}_{DFS},\hat{\nu}_{MIXED}) = 1.76 \pm 0.06$.
+The separation between the three regimes, with BFS--MIXED and BFS--DFS distances $7$ and $16$ times the within-BFS baseline, shows that the structural feature space $\mathcal{X}$ captures the intended differences in search behavior between BFS, MIXED, and DFS trajectory distributions.
+
+\subsection{Empirical Calibration of the Theoretical Ceiling}
+\label{app:empirical_calibration}
+
+In Figure \ref{fig:analytical_grid}A, we visualize the empirical accuracy of the evaluated architectures against the $\text{TC}^0$ depth capacity bottleneck. We now describe how the ``Theoretical Ceiling'' is motivated by Lemma~\ref{lemma:depth_bottleneck} and calibrated. %
+
+By Theorem \ref{thm:unified_bound}, the expected target risk on the DFS evaluation measure ($\mu_{DFS}$) is lower-bounded by the depth penalty: 
+\begin{equation}
+\mathcal{R}_{\mu_{DFS}}(f) \ge C_{\mathrm{depth}} \int_{\mathcal{X}} P_{\mathrm{implicit}}(\boldsymbol{\chi}; L, \alpha_{\mathrm{circ}}) \, d\nu_{DFS}(\boldsymbol{\chi}) - \epsilon.
+\end{equation}
+Because empirical accuracy is defined as $1 - \mathcal{R}_{\mu_T}(f)$, this expected risk lower bound gives an empirical accuracy upper bound (the theoretical ceiling). Since $\chi_1$ takes finitely many values (Appendix~\ref{app:trajectory-space}), the truncated mass $\int_{\mathcal{X}} P_{\mathrm{implicit}}\,d\nu_{DFS}$ is a non-increasing step function of the physical layer depth $L$, and we summarize its decay over the evaluated depths by a smooth exponential profile. On this task $\chi_1\le 4$ for every reference trajectory (Appendix~\ref{app:eval_scope}), so the curve below is a calibrated envelope, drawn for the DFS evaluation set, the hardest of the three.
+
+We formulate the theoretical ceiling as:
+\begin{equation}
+    \text{Accuracy}_{\max}(L) = \mathcal{A}_{\max} - \beta \cdot \exp(-\alpha \cdot L)
+\end{equation}
+where $\beta, \alpha > 0$ are calibration constants and $\mathcal{A}_{\max}$ is the asymptotic empirical accuracy. The risk bound above constrains only the depth-dependent term and gives $\mathcal{A}_{\max}\le 1+\epsilon$, so we calibrate $\mathcal{A}_{\max}$ empirically, and it absorbs the failure sources outside the depth term. One of them is the generation budget: within the $512$ new tokens allowed at evaluation (Appendix~\ref{app:reproducibility}), the reference trajectories themselves reach the target for $0.4645$, $0.4860$ and $0.4915$ of the BFS, DFS and MIXED evaluation problems; most trained models, which are scored on their own searches, exceed these rates (up to $0.5360$ on the DFS set), so the budget is a loose constraint on $\mathcal{A}_{\max}$.
+
+We calibrated the constants $(\mathcal{A}_{\max} \approx 0.538, \beta \approx 0.035, \alpha \approx 0.15)$ such that the curve acts as the strict supremum envelope for all 54 evaluated models. As shown in Figure \ref{fig:analytical_grid}A, every empirical data point lies strictly below this ceiling. The width conclusion rests on measured accuracies at fixed depth, independent of the fitted constants. Taking the best of the six models of each architecture on $\mu_{DFS}$ (three training measures, APE and RoPE), the gain from width falls below one point at the largest widths: at $L=12$, widening from $d=192$ to $d=768$ adds $1.55$ points ($0.5160\to0.5315$), but widening further to $d=1536$, which quadruples the core parameters ($84.9\,\mathrm{M}\to339.7\,\mathrm{M}$), changes accuracy by $-0.2$ points ($0.5295$); at $L=24$, doubling $d$ from $512$ to $1024$ adds $0.6$ points ($0.5280\to0.5340$); and at $L=6$, quadrupling $d$ from $256$ to $1024$ adds $0.95$ points ($0.5130\to0.5225$). Model by model, the two doublings that start from $d\ge512$ ($L=12$ and $L=24$) lower APE accuracy on $\mu_{DFS}$ for every training measure (by $0.25$--$9.7$ points) and change RoPE accuracy by $-0.3$ to $+1.3$ points. This confirms that, over the evaluated range, width scaling does not raise the ceiling.
+
+\section{Supplementary Empirical Analyses}
+\label{app:Supp Fig}
+
+\subsection{Mitigation by Translation Equivariance}
+
+In Section \ref{sec:experiments} of the main text, we stated that the structural smoothness provided by Rotary Position Embedding (RoPE) acts as a continuous structural regularizer, removing the extra depth that APE requires at Large scale on recursive backtracking ($\mu_{DFS}$). 
+
+To isolate this effect, Figure \ref{fig:supp_rope_mitigation} visualizes the performance trajectories of Large- and Medium-scale models trained and evaluated exclusively on the $\mu_{DFS}$ distribution. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/fig_supp_rope_mitigation.pdf}
+    \caption{Empirical verification of structural regularization via translation equivariance on $\mu_{DFS}$. \textbf{(A) Large Scale Models:} Under Absolute Positional Encoding (APE, red dashed line), increasing physical layer depth ($L=12 \to L\ge 24$) raises accuracy from $0.4835$ to $0.5110$--$0.5115$. Because $\alpha_{\mathrm{circ}}$ is the same for both encodings (Lemma~\ref{lem:physical-depth-limit}) and Wide RoPE (blue solid line, $L=12$) achieves $0.5180$, 12 layers suffice on this task. We therefore attribute the failure of Wide APE ($L=12$, $0.4835$) to its coordinate disruption (Lemma~\ref{lemma:ape_shattering}, Assumption~\ref{assum:ar_sensitivity}): at this scale APE needs additional physical depth ($L\ge 24$) to memorize absolute-position-dependent routing, whereas RoPE, which preserves translation equivariance, succeeds with 12 layers.
+    \textbf{(B) Medium Scale Models:} The same comparison at $L=6$, $12$ and $24$ (Wide, Balanced, Deep): APE reaches $0.5115$, $0.5150$ and $0.5135$, and RoPE $0.5165$, $0.5155$ and $0.5150$, so RoPE lies above APE for every shape, by at most $0.5$ points.
+    }
+    \label{fig:supp_rope_mitigation}
+\end{figure}
+
+At Large scale (Panel A), APE accuracy (red dashed line) rises monotonically with depth, from $0.4835$ (Wide, $L=12$) to $0.5110$ ($L=24$) and $0.5115$ ($L=48$); the same monotone rise holds at this scale for every combination of training measure and evaluation set. Twelve layers nonetheless suffice on this task: Wide RoPE reaches $0.5180$ at the same $L=12$, and the Medium APE models of Panel B reach $0.5115$ at $L=6$ and $0.5150$ at $L=12$. The added depth thus compensates for a failure specific to the widest APE model, which the next paragraph attributes to coordinate disruption.
+
+In contrast, RoPE flattens this trajectory. As proven in Lemma \ref{lem:physical-depth-limit}, RoPE and APE possess identical theoretical expressivity limits ($\alpha_{\mathrm{circ}}$). However, without relative equivariance, APE architectures are limited by coordinate disruption (Assumption~\ref{assum:ar_sensitivity}; Corollary~\ref{cor:ape_vs_rope}) before reaching their capacity, so that at Large scale APE needs greater depths ($L\ge 24$) to provide implicit routing redundancy. By preserving structural shift invariance, RoPE keeps its structural risk $\mathcal{L}_{f_{\mathrm{RoPE}}}$ smooth over $\mathcal{X}$ (Theorem~\ref{thm:lipschitz_gap}) and avoids these coordinate disruptions. The Large Wide DFS RoPE configuration achieves $0.5180$, on par with $0.5145$ for its Deep counterpart. Translation equivariance thus acts as a structural regularizer that lets the architecture reach its expressivity limits without premature collapse.
+
+\subsection{Baseline Capacity and Structural Variance}
+\label{app:baseline_variance}
+
+Figure \ref{fig:app_baseline_variance} gives an aggregate view of in-distribution performance ($\nu_T = \nu_S$) across all three parameter scales and training measures. 
+
+Each bar averages the accuracy of the Deep, Wide and Balanced variants, which have nearly equal core parameter counts, for one scale, training measure and positional encoding. Its standard-deviation error bar, the \textit{structural variance}, therefore measures how sensitive accuracy is to the aspect ratio of the computational graph.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/app_baseline_variance_1x3.pdf}
+    \caption{Baseline performance and structural variance across the experimental grid at Small (A), Medium (B) and Large (C) scale. For in-distribution evaluation ($\nu_T = \nu_S$), the bars represent the mean empirical accuracy across different architectural aspect ratios (Deep, Wide, Balanced), while the error bars denote $\pm 1$ standard deviation. The large variance under APE at the Large scale (largest on $\mu_{MIXED}$) shows that aspect ratio dominates performance, whereas RoPE reduces this variance at the Medium and Large scales, as expected of a structural regularizer.}
+    \label{fig:app_baseline_variance}
+\end{figure}
+
+In Figure~\ref{fig:app_baseline_variance}, the structural variance under Absolute Positional Encoding (APE, red bars) is high, particularly at the Large scale, where it is driven by the Wide architecture (most visibly its collapse under $\mu_{MIXED}$, Figure~\ref{fig:analytical_grid}C). Under absolute sequence coordinates, accuracy at a matched parameter budget thus depends strongly on the aspect ratio: at Large scale, APE accuracy rises with depth for every training measure, by up to $11.15$ points in distribution.
+
+By contrast, Rotary Position Embedding (RoPE, blue bars) has smaller error bars at the Medium and Large scales. Its translation equivariance reduces the architecture's sensitivity to the discrete layout of the computational graph. In line with our theory, preserving local structural equivariance acts as a continuous structural regularizer: it raises the lowest accuracy across depth-to-width ratios in eight of the nine scale--measure cells (all but Small-scale BFS, where the two differ by $0.05$ points).
+
+\section{Further Intuition on the Bounds} %
+\label{app:intuition}
+
+\paragraph{What bounds the accuracy of RoPE models.}
+RoPE removes the APE-specific coordinate-disruption failure (Corollary~\ref{cor:ape_vs_rope}) and, under a measure shift, controls the Lipschitz penalty $K_{f,\mathrm{PE}}\,W_1(\nu_S,\nu_T)$ of Theorem~\ref{thm:unified_bound}; the two capacity terms, the depth term $C_{\mathrm{depth}}\int P_{\mathrm{implicit}}\,d\nu_T$ and the width term $C_{\mathrm{width}}/\sqrt{m}$, are the same for both encodings. A shift-invariant architecture therefore avoids the collapse caused by coordinate shifts, while its absolute accuracy remains bounded by the depth and width terms and by the residual $\epsilon$. Accordingly, the recovery from $0.4215$ (Large Wide MIXED APE) to $0.5425$ (its RoPE counterpart) brings the model to the level of the other Large architectures. That level is saturated in depth and width over the evaluated range: on each evaluation set the best accuracies at $L=12$, $24$ and $48$ lie within one point of each other, and the width comparison of Appendix~\ref{app:empirical_calibration} shows gains below one point at the largest widths.
+
+\paragraph{Controlling $\epsilon$ and the dimension of $\mathcal{X}$.}
+Enlarging $\mathcal{X}$ with finer descriptors (e.g., token identities, $n$-gram statistics, operand values) would drive the sufficiency residual $\epsilon$ of Assumption~\ref{assum:epsilon_relaxed} toward zero, at the price of a sample complexity for estimating $W_1$ that grows rapidly with the dimension \citep{weed2019sharp}. The twelve structural coordinates balance a residual $\epsilon$ against stable estimation of the structural shift (Appendix~\ref{app:w1_estimation}).
+
+\paragraph{How $K_f$ enters the experiments.}
+$K_f$ enters through its theoretical bounds: $K_{f,\mathrm{APE}}=\Omega(1)$ and $K_{f,\mathrm{RoPE}}=\mathcal{O}(1/T_{\max})$ follow from Assumption~\ref{assum:ar_sensitivity} (Lemma~\ref{lemma:ape_shattering} and Theorem~\ref{thm:lipschitz_gap}), and Section~\ref{sec:experiments} examines their empirical consequences across architectures and training measures.
+
+\section{Empirical Check of Structural Sufficiency (\texorpdfstring{Assumption~\ref{assum:epsilon_relaxed}}{Assumption 1})} %
+\label{app:gbc_check}
+We check Assumption~\ref{assum:epsilon_relaxed} for two trained models by predicting their per-problem loss from $\boldsymbol{\chi}$, within and across the three search measures. All metrics are computed out of fold on freshly generated trajectories ($50{,}000$ for one model and $3{,}000$ of them for the other) and compared with explicit baselines.
+
+\textbf{Setup.} The label is the zero-one loss $\ell(f,z)$ of Appendix~\ref{app:risk}: whether model $f$, decoding greedily with the settings of Appendix~\ref{app:reproducibility}, fails on the problem $x_{\mathrm{init}}^{(z)}$ of the reference trajectory $z$. The model is prompted with this problem only, so $\ell$ is a deterministic function of it (repeated prompts always received the same label). Data: $50{,}000$ newly generated reference trajectories (generator seed $2026$; $16{,}667/16{,}667/16{,}666$ from $\mu_{BFS},\mu_{DFS},\mu_{MIXED}$). Of their problems, $37.7\%$ ($39.3\%$ of the subset used for $f_2$) also occur in at least one training set, almost all of them with $3$ operands; Table~\ref{tab:gbc} therefore also reports the problems absent from all training sets. Models: Small Deep MIXED RoPE ($f_1$, all $50{,}000$ trajectories) and Large Deep BFS APE ($f_2$, the first $1{,}000$ per measure), two of the $54$ configurations of Section~\ref{sec:experiments}, which differ in scale, training measure and positional encoding. Every input is computed from the reference trajectory $z$, never from the model's output: $\boldsymbol{\chi}=\Phi(z)$; $\boldsymbol{\chi}$ without the reference solution indicator $\chi_{10}$; the token length of $z$ (LEN); the problem alone (PROB: target, operand count and sorted operands, i.e., the prompt up to operand order); and the operand count alone. $\hat{\mathcal{L}}$ is scikit-learn's \texttt{HistGradientBoostingClassifier} \citep{pedregosa2011scikit} with default settings, evaluated out of fold under stratified 5-fold cross-validation. McFadden's pseudo-$R^2$ is $1-\log L_{\hat{\mathcal{L}}}/\log L_0$, where $L_0$ is the likelihood of a null model that predicts the training-fold base rate \citep{mcfadden1979quantitative}. The code and the per-problem labels are available on GitHub (Appendix~\ref{app:code}). The classifier fits $P(\ell{=}0)$, as in Table~\ref{tab:gbc}; with $P(\ell{=}1)$ the fits differ only through the default early stopping, which is active for the training sets of $f_1$ (more than $10{,}000$ samples) and draws a validation split that depends on the coding. Switching the coding changes every reported value by at most $0.003$, except the risk estimates of $f_1$ classifiers fitted on BFS or DFS trajectories alone (up to $0.04$), which we report below under $P(\ell{=}1)$, with the value under $P(\ell{=}0)$ in parentheses.
+
+\begin{table}[h]
+\centering\small
+\caption{Per-trajectory prediction of $\ell$ by $\hat{\mathcal{L}}$: out-of-fold ROC-AUC and McFadden pseudo-$R^2$ (mean over five folds; $\pm$ population s.d.\ over folds for $\boldsymbol{\chi}$). ``Not in training'': problems absent from all training sets ($n=31{,}173$ for $f_1$ and $1{,}822$ for $f_2$; mostly with $4$ operands). ``Within $\mu$'': cross-validated within the trajectories of one search measure ($16{,}667/16{,}667/16{,}666$ for $f_1$, $1{,}000$ each for $f_2$).}
+\label{tab:gbc}
+\begin{tabular}{lcccc}
+\toprule
+ & \multicolumn{2}{c}{$f_1$ ($n=50{,}000$)} & \multicolumn{2}{c}{$f_2$ ($n=3{,}000$)} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Input & ROC-AUC & McFadden & ROC-AUC & McFadden \\
+\midrule
+$\boldsymbol{\chi}$ & $0.927\pm0.002$ & $0.51\pm0.01$ & $0.929\pm0.007$ & $0.48\pm0.03$ \\
+$\boldsymbol{\chi}$ without $\chi_{10}$ & $0.926$ & $0.50$ & $0.927$ & $0.47$ \\
+LEN & $0.903$ & $0.44$ & $0.917$ & $0.46$ \\
+PROB & $0.890$ & $0.40$ & $0.906$ & $0.41$ \\
+Operand count only & $0.797$ & $0.27$ & $0.853$ & $0.40$ \\
+\midrule
+$\boldsymbol{\chi}$, not in training & $0.905$ & $0.44$ & $0.910$ & $0.36$ \\
+$\boldsymbol{\chi}$, within $\mu_{BFS}$ & $0.905$ & $0.44$ & $0.940$ & $0.49$ \\
+$\boldsymbol{\chi}$, within $\mu_{DFS}$ & $0.952$ & $0.60$ & $0.912$ & $0.39$ \\
+$\boldsymbol{\chi}$, within $\mu_{MIXED}$ & $0.918$ & $0.48$ & $0.919$ & $0.41$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Per trajectory.} Out of fold, $\boldsymbol{\chi}$ predicts $\ell$ with ROC-AUC $0.927$ and McFadden pseudo-$R^2$ $0.51$ for $f_1$ ($0.929$ and $0.48$ for $f_2$); removing $\chi_{10}$ changes little. McFadden's index runs considerably lower than the $R^2$ of linear regression, and values of $0.2$--$0.4$ already represent an excellent fit \citep{mcfadden1979quantitative}. Every input in Table~\ref{tab:gbc} lies in or above that range, and among the inputs evaluated on the full sample, $\boldsymbol{\chi}$ scores highest for both models. For $f_1$, $\boldsymbol{\chi}$ exceeds LEN and PROB on both metrics in every fold. For $f_2$, it exceeds them in ROC-AUC in every fold and in mean McFadden value ($0.48$ against $0.41$ for PROB and $0.46$ for LEN, which it exceeds in three of five folds). Problem size carries a large part of the signal (accuracy is about $0.8$ with $3$ operands and $0.1$--$0.2$ with $4$), and $\boldsymbol{\chi}$ goes beyond it: ROC-AUC $0.927$ against $0.797$ and McFadden $0.51$ against $0.27$ for the operand count alone ($f_1$), and $0.929$ against $0.853$ and $0.48$ against $0.40$ ($f_2$). On problems absent from all training sets, $\boldsymbol{\chi}$ remains strongly predictive (ROC-AUC $0.905$ and $0.910$, McFadden $0.44$ and $0.36$ for $f_1$ and $f_2$). Within a single search measure, $\boldsymbol{\chi}$ reaches ROC-AUC $0.905$--$0.952$ ($f_1$) and $0.912$--$0.940$ ($f_2$). PROB is nearly the whole prompt, which determines $\ell$, yet scores below $\boldsymbol{\chi}$: the classifier extracts more predictive signal from the structural coordinates than from the problem itself.
+
+\textbf{Across search measures.} The three search measures share one problem distribution and differ only in the reference search trace, which the model never sees (Appendix~\ref{app:eval_scope}). On freshly generated problems, a fixed model therefore has the same risk under all three measures up to sampling noise ($0.502/0.494/0.500$ for $f_1$, $0.511/0.511/0.490$ for $f_2$). Assumption~\ref{assum:epsilon_relaxed} thus holds for every pair of these measures with $\epsilon$ equal to the largest gap between a measure's risk and the pooled risk ($0.004$ for $f_1$, $0.014$ for $f_2$), attained by the constant $\mathcal{L}_f$ equal to the pooled risk; a constant fitted on one measure misestimates the risk of another by at most $0.007$ ($f_1$) and $0.021$ ($f_2$). A transfer analysis fits $\hat{\mathcal{L}}$ on all trajectories of one search measure and applies it to another: it ranks the target trajectories with ROC-AUC $0.87$--$0.95$, and its mean prediction matches the target risk within $0.043$ ($0.061$) for $f_1$ and $0.038$ for $f_2$. We take this transfer error as the empirical counterpart of $\epsilon$; it measures how stable the $\boldsymbol{\chi}$-conditional risk is across search procedures.
+
+\textbf{Sub-populations.} We group the trajectories into $54$ ($f_1$) and $18$ ($f_2$) cells of search measure $\times$ operand count $\times$ target band; unlike the three search measures, cells that differ in operand count or target band pose different problems. In each cell we compare the observed risk with the mean cross-fitted prediction of $\hat{\mathcal{L}}$ on $\boldsymbol{\chi}$, fitted on trajectories from all cells: the absolute deviation averages $0.031$ (maximum $0.114$) for $f_1$ and $0.038$ (maximum $0.081$) for $f_2$, against $0.297$ and $0.353$ for a constant (LEN: $0.030$ and $0.048$; PROB: $0.010$ and $0.016$). If $\hat{\mathcal{L}}$ were perfectly calibrated (labels simulated from its own predictions), the largest deviation would stay below $0.037$ ($f_1$) and $0.070$ ($f_2$) in $95\%$ of samples; both observed maxima exceed these levels. Fitted on a single search measure and applied to the cells of the other two, $\hat{\mathcal{L}}$ deviates from the cell risk by at most $0.196$ ($0.237$) for $f_1$ and $0.116$ for $f_2$. Across cells, the cross-fitted predictions of $\hat{\mathcal{L}}$ on $\boldsymbol{\chi}$ reach a coefficient of determination of $0.983/0.985$ ($f_1/f_2$) for the observed risks, against about $0$ for a constant; because the cells are defined by problem difficulty, simpler summaries reach comparable or higher values ($0.986/0.977$ for LEN, $0.998/0.996$ for PROB, $0.969/0.964$ for the operand count alone).
+
+\textbf{Conclusion.} $\boldsymbol{\chi}$ is a strong predictor of per-problem success: by ROC-AUC it ranks above LEN, PROB and the operand count for both models, and it stays predictive on problems absent from all training sets. Across the three search measures, which share one problem distribution, a fixed model has the same risk up to sampling noise, so Assumption~\ref{assum:epsilon_relaxed} holds with $\epsilon=0.004$ ($f_1$) and $0.014$ ($f_2$).
+
+\section{Experimental Details and Reproducibility}
+\label{app:reproducibility}
+
+This appendix gives the compute environment, model implementations, training hyperparameters, task format and evaluation procedure for the 54 Transformer configurations of Section~\ref{sec:experiments}.
+
+\subsection{Compute Infrastructure and Environment}
+All experiments, including dataset generation, model training, and trajectory evaluations, were executed on a high-performance Linux cluster. The hardware infrastructure comprises nodes equipped with 4 or 8 NVIDIA A100 (40 GB) Tensor Core GPUs. %
+ Job scheduling was managed via Slurm. 
+
+Each individual model training run was allocated a dedicated environment consisting of 1 NVIDIA A100 GPU, 16 CPU cores, and 128 GB of system RAM, with a maximum wall-clock time limit of 7 days; training took 2.7--4.6\,h (Small), 8.2--21.9\,h (Medium) and 18.3--58.7\,h (Large), about 907 GPU-hours in total. The evaluation pipeline was allocated 1 NVIDIA A100 GPU, 24 CPU cores, and 128 GB of system RAM (about 324 GPU-hours in total). Labeling the problems of Appendix~\ref{app:gbc_check} by greedy decoding took about 17 further GPU-hours on the same hardware (single-GPU jobs with 8 CPU cores and 48 GB of RAM); the remaining computations (generating the problems of Appendix~\ref{app:gbc_check}, the $\widehat W_1$ estimates of Appendix~\ref{app:w1_estimation} and the analyses of Appendix~\ref{app:gbc_check}) used CPUs only. For Appendix~\ref{app:beyond}, Experiment~3 took about 23.5 GPU-hours on NVIDIA A100 (80 GB) GPUs, with grading on CPUs, Experiment~4 about 0.45 GPU-hours on NVIDIA H100 (80 GB) GPUs, Experiment~5 about 106 GPU-hours on NVIDIA H100 and L40S GPUs, Experiment~6 about 4.5 GPU-hours on NVIDIA A100 (80 GB) and H100 GPUs, and Experiments~7 and~8 about 119 and 13 GPU-hours on NVIDIA A100 and L40S GPUs. Experiments~1 and~2 used CPUs only. %
+ 
+The software environment was built upon Python 3.10, PyTorch 2.5.1 (CUDA 12.4), Hugging Face \texttt{transformers} 4.57.1, \texttt{datasets} 4.4.1 and \texttt{accelerate} 1.12.0; attention used the PyTorch SDPA kernel for GPT-NeoX and the eager implementation for GPT-Neo. %
+ During evaluation, the PyTorch cuDNN backend was set to deterministic mode (\texttt{torch.backends.cudnn.deterministic = True}).
+
+\paragraph{Retraining check.}
+Retraining the 18 Small models of Section~\ref{sec:experiments} from scratch with the released training code and configuration, on training data regenerated by the released generator, reproduces their accuracies on the three evaluation sets within $0.02$ (mean absolute difference $0.006$ over the $54$ model--set pairs); the retraining ran on NVIDIA L40S and A100 GPUs and took about 57 GPU-hours.
+
+\subsection{Architectural Implementations}
+\label{app:implementations}
+
+To isolate the positional encoding variable ($\mathrm{PE} \in \{\text{APE}, \text{RoPE}\}$), we mapped the architectures to their respective native implementations in the Hugging Face library:
+\begin{itemize}
+    \item \textbf{APE Configurations:} Evaluated using the \texttt{GPTNeoForCausalLM} architecture. The absolute positional embeddings were configured up to the maximum context length ($1024$). Global attention was enforced in all layers (i.e., \texttt{attention\_types=[[["global"], n\_layer]]}) to prevent confounding effects from sliding-window or local attention approximations.
+    \item \textbf{RoPE Configurations:} Evaluated using the \texttt{GPTNeoXForCausalLM} architecture, which natively supports rotary mappings. We set the rotary percentage to $1.0$ (applying RoPE to all attention head dimensions) and disabled parallel residual connections (\texttt{use\_parallel\_residual=False}) to keep the computational graph as close as possible to the APE baseline, isolating translation equivariance as the principal independent variable (the two implementations retain minor differences, e.g., attention-logit scaling and input/output embedding tying). %
+
+\end{itemize}
+Both architectural families used GELU activations (the exact GELU in GPT-NeoX and its tanh approximation, \texttt{gelu\_new}, in GPT-Neo) and vocabulary dimension $|\mathcal{V}| = 50{,}257$. During training of the Medium and Large models, memory use was reduced by enabling gradient checkpointing (\texttt{gradient\_checkpointing=True}), %
+ which implicitly disables key-value caching during the forward pass. Computations were uniformly executed in \texttt{bfloat16} mixed precision to prevent numerical overflow while accelerating matrix multiplications.
+
+\subsection{Optimization Regimen}
+
+All 54 configurations were trained from scratch under a single shared hyperparameter configuration for controlled capacity comparisons:
+\begin{itemize}
+    \item \textbf{Data \& Context:} The models were trained on 500,000 trajectories per training measure. Sequences were truncated or padded to $T_{\max} = 1024$.
+    \item \textbf{Loss Function:} Standard causal language modeling (next-token prediction) using cross-entropy loss. Padding tokens were ignored during loss computation by overriding their labels to $-100$; because the padding token is the end-of-text token that also opens and closes each trajectory, these delimiters were excluded from the loss as well.
+    \item \textbf{Batch Size:} The effective batch size was $32$ trajectories per optimization step across all runs: a per-device batch of $32$ for the Small models, and a per-device batch of $4$ with $8$ gradient accumulation steps for the Medium and Large models.
+
+    \item \textbf{Learning Rate \& Optimizer:} We used the AdamW optimizer with a single peak learning rate of $\eta = 8 \times 10^{-5}$ across all scales (Small, Medium, Large). The learning rate followed a linear warmup schedule for the first $1{,}000$ steps and then decayed linearly to zero. %
+ Weight decay was uniformly set to $0.01$.
+    \item \textbf{Epochs \& Seeds:} All models were trained for exactly 3 full epochs. Results for each configuration come from a single training run, with the global random seed for data shuffling and weight initialization fixed to $42$ (\texttt{random.seed(42)}, \texttt{torch.manual\_seed(42)}).
+\end{itemize}
+
+\subsection{The Countdown Task and the Stream of Search Format} %
+\label{app:countdown_example}
+In Countdown, a set of input numbers must be combined with the operations $\{+,-,\times,\div\}$, each number used once, to reach a target. Consider the target $10$ with numbers $[2,3,5]$. The depth-first search below first expands $2\times5=10$ (remaining $[3,10]$), whose children $3+10=13$ and $10-3=7$ miss the target; it backtracks to the root, expands $2\times3=6$ (remaining $[5,6]$), again meets only dead ends ($11$ and $1$), backtracks once more, and finally expands $2+3=5$ (remaining $[5,5]$) and $5+5=10$, which reaches the target. Stream of Search \citep{gandhi2024streamsearchsoslearning} serializes such a tree, including every dead end and backtracking step, into a single token sequence. The trajectory below is the one produced by the depth-first generator used for $\mu_{DFS}$ on this instance (sum heuristic, pruning threshold equal to the target); the model is prompted with the first line and must generate the rest.
+{\footnotesize
+\begin{verbatim}
+Current State: 10:[2, 3, 5], Operations: []
+Exploring Operation: 2*5=10, Resulting Numbers: [3, 10]
+Generated Node #0,0: 10:[3, 10] Operation: 2*5=10
+Moving to Node #0,0
+Current State: 10:[3, 10], Operations: ['2*5=10']
+Exploring Operation: 3+10=13, Resulting Numbers: [13]
+13,10 unequal: No Solution
+Moving to Node #0,0
+Current State: 10:[3, 10], Operations: ['2*5=10']
+Exploring Operation: 10-3=7, Resulting Numbers: [7]
+7,10 unequal: No Solution
+Moving to Node #0
+Current State: 10:[2, 3, 5], Operations: []
+Exploring Operation: 2*3=6, Resulting Numbers: [5, 6]
+Generated Node #0,1: 10:[5, 6] Operation: 2*3=6
+...                          (two dead ends below node #0,1, then backtrack to #0)
+Exploring Operation: 2+3=5, Resulting Numbers: [5, 5]
+Generated Node #0,2: 10:[5, 5] Operation: 2+3=5
+Moving to Node #0,2
+Current State: 10:[5, 5], Operations: ['2+3=5']
+Exploring Operation: 5+5=10, Resulting Numbers: [10]
+10,10 equal: Goal Reached
+\end{verbatim}
+}
+
+\subsection{Evaluation Procedure}
+
+Each model was evaluated on a set of 2,000 trajectories per structural measure ($\nu_{BFS}, \nu_{DFS}, \nu_{MIXED}$). For $\nu_{BFS}$ and $\nu_{DFS}$ these are the first 2,000 trajectories generated for the corresponding training measure (the generator is seeded identically), so in-distribution scores measure how well a model fits its training measure; $\nu_{MIXED}$ combines 1,000 trajectories from each. %
+ The autoregressive generation was prompted identically using the initial problem state: \texttt{<|endoftext|>Current State: [Target]:[Nums], Operations: []} followed by a newline. %
+
+To remove sampling noise, we used greedy decoding (\texttt{do\_sample=False}, \texttt{num\_beams=1}) with at most $512$ new tokens. Evaluation used a batch size of $32$ with left padding for RoPE models and a batch size of $1$ (no padding) for APE models. %
+ The generated sequences were subsequently parsed by the deterministic scoring function of the original Stream of Search implementation \citep{gandhi2024streamsearchsoslearning}, which checks the arithmetic of the reported operations and whether the target state is reached, %
+ yielding the expected zero-one risk $\mathcal{R}_{\mu_T}(f)$ reported in Section~\ref{sec:experiments}.
+
+\paragraph{Comparisons across measures.}\label{app:eval_scope}
+The three measures differ only in the search procedure that serializes the reference trajectory: the generator draws the number of operands, the target and the operands in the same way for all three, so they share one problem distribution. Because the model is prompted with the problem alone and the scorer checks only the model's own output, a fixed model has the same risk under $\mu_{BFS}$, $\mu_{DFS}$ and $\mu_{MIXED}$. Their structural measures, however, are far apart (Appendix~\ref{app:w1_estimation}): the DFS reference trajectories backtrack nearly four times as often as the BFS ones (mean $\chi_6=0.18$ against $0.05$ on the evaluation sets), with tree depth $\chi_1\le 3$ against $\chi_1\le 4$. On the freshly generated problems of Appendix~\ref{app:gbc_check}, Large Deep BFS APE has risk $0.511$, $0.511$ and $0.490$ under the three measures, whereas its accuracy on the evaluation sets falls from $0.4815$ (BFS) to $0.4555$ (DFS). Differences between the evaluation sets therefore reflect their particular $2{,}000$-problem samples. Averaged over the 18 models of each training measure, accuracy on the BFS, MIXED and DFS sets is $0.4740$, $0.4699$ and $0.4513$ (BFS-trained), $0.5132$, $0.5214$ and $0.5105$ (DFS-trained), and $0.5175$, $0.5207$ and $0.5110$ (MIXED-trained): the DFS set is the hardest for every training measure, and the drop from the BFS to the DFS set is larger for BFS-trained models ($2.27$ points, against $0.27$ and $0.65$ for DFS- and MIXED-trained models). In comparisons of architectures and training measures on a common evaluation set (Section~\ref{sec:experiments}), every model is scored on the same problems.
+
+\section{Code Availability}
+\label{app:code}
+Code for data generation, training, evaluation and analysis is available at \url{https://github.com/Yyuzrah/AMTA4R}. %
+
+\input{appendix_beyond}
+
