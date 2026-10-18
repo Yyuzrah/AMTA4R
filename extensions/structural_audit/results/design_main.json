@@ -1,0 +1,488 @@
+{
+ "A": {
+  "desc": "ALFWorld task types (ETO expert trajectories)",
+  "cols": [
+   "A_S2_actions",
+   "A_T4_goto",
+   "A_T5_locations",
+   "A_T6_loc_revisit",
+   "A_T8_loc_cycle_rank",
+   "A_N1_max_open_depth",
+   "A_T2_mean_open_depth",
+   "A_C1_push_rate",
+   "A_C2_pop_rate",
+   "A_C7_search_misses",
+   "A_C15_actions_before_take",
+   "A_I1_manip",
+   "A_I1_transform",
+   "A_I2_verb_entropy"
+  ],
+  "groups": [
+   "pick_and_place_simple",
+   "look_at_obj_in_light",
+   "pick_clean_then_place_in_recep",
+   "pick_heat_then_place_in_recep",
+   "pick_cool_then_place_in_recep",
+   "pick_two_obj_and_place"
+  ],
+  "excluded": [],
+  "nunits": {
+   "pick_and_place_simple": 759,
+   "look_at_obj_in_light": 279,
+   "pick_clean_then_place_in_recep": 576,
+   "pick_heat_then_place_in_recep": 371,
+   "pick_cool_then_place_in_recep": 472,
+   "pick_two_obj_and_place": 662
+  },
+  "nrows": {
+   "pick_and_place_simple": 759,
+   "look_at_obj_in_light": 279,
+   "pick_clean_then_place_in_recep": 576,
+   "pick_heat_then_place_in_recep": 371,
+   "pick_cool_then_place_in_recep": 472,
+   "pick_two_obj_and_place": 662
+  },
+  "pairs": [
+   [
+    "pick_and_place_simple",
+    "look_at_obj_in_light"
+   ],
+   [
+    "pick_and_place_simple",
+    "pick_clean_then_place_in_recep"
+   ],
+   [
+    "pick_and_place_simple",
+    "pick_heat_then_place_in_recep"
+   ],
+   [
+    "pick_and_place_simple",
+    "pick_cool_then_place_in_recep"
+   ],
+   [
+    "pick_and_place_simple",
+    "pick_two_obj_and_place"
+   ],
+   [
+    "look_at_obj_in_light",
+    "pick_clean_then_place_in_recep"
+   ],
+   [
+    "look_at_obj_in_light",
+    "pick_heat_then_place_in_recep"
+   ],
+   [
+    "look_at_obj_in_light",
+    "pick_cool_then_place_in_recep"
+   ],
+   [
+    "look_at_obj_in_light",
+    "pick_two_obj_and_place"
+   ],
+   [
+    "pick_clean_then_place_in_recep",
+    "pick_heat_then_place_in_recep"
+   ],
+   [
+    "pick_clean_then_place_in_recep",
+    "pick_cool_then_place_in_recep"
+   ],
+   [
+    "pick_clean_then_place_in_recep",
+    "pick_two_obj_and_place"
+   ],
+   [
+    "pick_heat_then_place_in_recep",
+    "pick_cool_then_place_in_recep"
+   ],
+   [
+    "pick_heat_then_place_in_recep",
+    "pick_two_obj_and_place"
+   ],
+   [
+    "pick_cool_then_place_in_recep",
+    "pick_two_obj_and_place"
+   ]
+  ]
+ },
+ "B": {
+  "desc": "Environments within one agent corpus (ETO)",
+  "cols": [
+   "B_S2_actions",
+   "B_T5_states",
+   "B_T6_state_revisit",
+   "B_T8_state_cycle_rank",
+   "B_N1_max_depth",
+   "B_T2_mean_depth",
+   "B_C1_push_rate",
+   "B_C2_pop_rate",
+   "B_C7_neg_feedback",
+   "B_I1_nav",
+   "B_I1_manip",
+   "B_I2_verb_entropy"
+  ],
+  "groups": [
+   "alfworld",
+   "sciworld",
+   "webshop"
+  ],
+  "excluded": [],
+  "nunits": {
+   "alfworld": 3119,
+   "sciworld": 1483,
+   "webshop": 1824
+  },
+  "nrows": {
+   "alfworld": 3119,
+   "sciworld": 1483,
+   "webshop": 1824
+  },
+  "pairs": [
+   [
+    "alfworld",
+    "sciworld"
+   ],
+   [
+    "alfworld",
+    "webshop"
+   ],
+   [
+    "sciworld",
+    "webshop"
+   ]
+  ]
+ },
+ "B2": {
+  "desc": "WebShop demonstrations: human vs GPT-4 (ETO)",
+  "cols": [
+   "B_S2_actions",
+   "B_T5_states",
+   "B_T6_state_revisit",
+   "B_T8_state_cycle_rank",
+   "B_N1_max_depth",
+   "B_T2_mean_depth",
+   "B_C1_push_rate",
+   "B_C2_pop_rate",
+   "B_C7_neg_feedback",
+   "B_I1_nav",
+   "B_I1_manip",
+   "B_I2_verb_entropy"
+  ],
+  "groups": [
+   "human",
+   "gpt"
+  ],
+  "excluded": [],
+  "nunits": {
+   "human": 905,
+   "gpt": 919
+  },
+  "nrows": {
+   "human": 905,
+   "gpt": 919
+  },
+  "pairs": [
+   [
+    "human",
+    "gpt"
+   ]
+  ]
+ },
+ "C_H1": {
+  "desc": "Harness: SWE-agent vs OpenHands, resolved runs, issues resolved by both",
+  "cols": [
+   "T1_max_depth",
+   "T2_mean_depth",
+   "T3_sd_depth",
+   "T4_tool_calls",
+   "T5_distinct_files",
+   "T6_file_reopen",
+   "T6a_repeat_action",
+   "C1_push_rate",
+   "C2_pop_rate",
+   "C7_failed_edits",
+   "C9_failed_edit_cascade",
+   "C14_run_calls",
+   "C15_first_edit_pos",
+   "I1_read_calls",
+   "I1_write_calls",
+   "I3_error_rate"
+  ],
+  "groups": [
+   "SWEagent_llama70b",
+   "OpenHands_qwen3coder480b"
+  ],
+  "excluded": [],
+  "nunits": {
+   "SWEagent_llama70b": 554,
+   "OpenHands_qwen3coder480b": 554
+  },
+  "nrows": {
+   "SWEagent_llama70b": 8392,
+   "OpenHands_qwen3coder480b": 5674
+  },
+  "pairs": [
+   [
+    "SWEagent_llama70b",
+    "OpenHands_qwen3coder480b"
+   ]
+  ]
+ },
+ "C_H2": {
+  "desc": "Harness: SWE-agent vs OpenHands, resolved runs, all resolved issues",
+  "cols": [
+   "T1_max_depth",
+   "T2_mean_depth",
+   "T3_sd_depth",
+   "T4_tool_calls",
+   "T5_distinct_files",
+   "T6_file_reopen",
+   "T6a_repeat_action",
+   "C1_push_rate",
+   "C2_pop_rate",
+   "C7_failed_edits",
+   "C9_failed_edit_cascade",
+   "C14_run_calls",
+   "C15_first_edit_pos",
+   "I1_read_calls",
+   "I1_write_calls",
+   "I3_error_rate"
+  ],
+  "groups": [
+   "SWEagent_llama70b",
+   "OpenHands_qwen3coder480b"
+  ],
+  "excluded": [],
+  "nunits": {
+   "SWEagent_llama70b": 835,
+   "OpenHands_qwen3coder480b": 3648
+  },
+  "nrows": {
+   "SWEagent_llama70b": 12467,
+   "OpenHands_qwen3coder480b": 20000
+  },
+  "pairs": [
+   [
+    "SWEagent_llama70b",
+    "OpenHands_qwen3coder480b"
+   ]
+  ]
+ },
+ "D": {
+  "desc": "Bridge/ECoT demonstrations by skill (VLA)",
+  "cols": [
+   "S2_steps",
+   "S_inert_share",
+   "T4_segments",
+   "T5_distinct_prims",
+   "T6_seg_revisit",
+   "T8_cycle_rank",
+   "N1_max_hold",
+   "N_holds",
+   "T2_hold_share",
+   "C_reversals",
+   "C9_longest_stall",
+   "C15_steps_before_grasp",
+   "I1_translation",
+   "I1_rotation",
+   "I1_gripper",
+   "I2_prim_entropy"
+  ],
+  "groups": [
+   "PICKPLACE",
+   "OPEN",
+   "CLOSE",
+   "FOLD",
+   "SWEEP",
+   "FLIP",
+   "TURN"
+  ],
+  "excluded": [],
+  "nunits": {
+   "PICKPLACE": 20000,
+   "OPEN": 1493,
+   "CLOSE": 1355,
+   "FOLD": 2780,
+   "SWEEP": 840,
+   "FLIP": 909,
+   "TURN": 810
+  },
+  "nrows": {
+   "PICKPLACE": 20000,
+   "OPEN": 1493,
+   "CLOSE": 1355,
+   "FOLD": 2780,
+   "SWEEP": 840,
+   "FLIP": 909,
+   "TURN": 810
+  },
+  "pairs": [
+   [
+    "PICKPLACE",
+    "OPEN"
+   ],
+   [
+    "PICKPLACE",
+    "CLOSE"
+   ],
+   [
+    "PICKPLACE",
+    "FOLD"
+   ],
+   [
+    "PICKPLACE",
+    "SWEEP"
+   ],
+   [
+    "PICKPLACE",
+    "FLIP"
+   ],
+   [
+    "PICKPLACE",
+    "TURN"
+   ],
+   [
+    "OPEN",
+    "CLOSE"
+   ],
+   [
+    "OPEN",
+    "FOLD"
+   ],
+   [
+    "OPEN",
+    "SWEEP"
+   ],
+   [
+    "OPEN",
+    "FLIP"
+   ],
+   [
+    "OPEN",
+    "TURN"
+   ],
+   [
+    "CLOSE",
+    "FOLD"
+   ],
+   [
+    "CLOSE",
+    "SWEEP"
+   ],
+   [
+    "CLOSE",
+    "FLIP"
+   ],
+   [
+    "CLOSE",
+    "TURN"
+   ],
+   [
+    "FOLD",
+    "SWEEP"
+   ],
+   [
+    "FOLD",
+    "FLIP"
+   ],
+   [
+    "FOLD",
+    "TURN"
+   ],
+   [
+    "SWEEP",
+    "FLIP"
+   ],
+   [
+    "SWEEP",
+    "TURN"
+   ],
+   [
+    "FLIP",
+    "TURN"
+   ]
+  ]
+ },
+ "E": {
+  "desc": "BabyAI task types (oracle bot subgoal stacks, fresh levels)",
+  "cols": [
+   "chi1_maxdepth",
+   "chi2_meandepth",
+   "chi3_sddepth",
+   "chi4_volume",
+   "chi5_deepen",
+   "chi6_backtrack",
+   "chi8_explore",
+   "chi9_explore_rate",
+   "chi11_manip",
+   "chi12_nav",
+   "ref_len",
+   "ref_turns",
+   "n_objs"
+  ],
+  "groups": [
+   "goto",
+   "pickup",
+   "open",
+   "putnext",
+   "pick up seq go to"
+  ],
+  "excluded": [],
+  "nunits": {
+   "goto": 4000,
+   "pickup": 4000,
+   "open": 4000,
+   "putnext": 4000,
+   "pick up seq go to": 4000
+  },
+  "nrows": {
+   "goto": 4000,
+   "pickup": 4000,
+   "open": 4000,
+   "putnext": 4000,
+   "pick up seq go to": 4000
+  },
+  "pairs": [
+   [
+    "goto",
+    "pickup"
+   ],
+   [
+    "goto",
+    "open"
+   ],
+   [
+    "goto",
+    "putnext"
+   ],
+   [
+    "goto",
+    "pick up seq go to"
+   ],
+   [
+    "pickup",
+    "open"
+   ],
+   [
+    "pickup",
+    "putnext"
+   ],
+   [
+    "pickup",
+    "pick up seq go to"
+   ],
+   [
+    "open",
+    "putnext"
+   ],
+   [
+    "open",
+    "pick up seq go to"
+   ],
+   [
+    "putnext",
+    "pick up seq go to"
+   ]
+  ]
+ }
+}

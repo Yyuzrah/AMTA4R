@@ -1,0 +1,129 @@
+{
+ "pass": true,
+ "failed": [],
+ "checks": {
+  "leak_cal_vs_test": {
+   "pass": true,
+   "n": 1,
+   "examples": []
+  },
+  "leak_vs_other_item_sets": {
+   "pass": true,
+   "n": 1,
+   "examples": []
+  },
+  "leak_demo_names": {
+   "pass": true,
+   "n": 1,
+   "examples": []
+  },
+  "gold_from_text": {
+   "pass": true,
+   "n": 3600,
+   "examples": []
+  },
+  "hash_I_cal": {
+   "pass": true,
+   "n": 13200,
+   "examples": []
+  },
+  "rescore": {
+   "pass": true,
+   "n": 730600,
+   "examples": []
+  },
+  "count_cal": {
+   "pass": true,
+   "n": 11,
+   "examples": []
+  },
+  "dhat_included_flag": {
+   "pass": true,
+   "n": 11,
+   "examples": []
+  },
+  "dhat_recomputed": {
+   "pass": true,
+   "n": 22,
+   "examples": []
+  },
+  "budget_from_cal_only": {
+   "pass": true,
+   "n": 22,
+   "examples": []
+  },
+  "hash_I_test": {
+   "pass": true,
+   "n": 26400,
+   "examples": []
+  },
+  "main_gold": {
+   "pass": true,
+   "n": 132000,
+   "examples": []
+  },
+  "count_test": {
+   "pass": true,
+   "n": 55,
+   "examples": []
+  },
+  "metric_acc": {
+   "pass": true,
+   "n": 660,
+   "examples": []
+  },
+  "metric_calls": {
+   "pass": true,
+   "n": 660,
+   "examples": []
+  },
+  "metric_tokens": {
+   "pass": true,
+   "n": 660,
+   "examples": []
+  },
+  "sanity_length_constant": {
+   "pass": true,
+   "n": 11,
+   "examples": []
+  },
+  "sanity_gold_not_degenerate": {
+   "pass": true,
+   "n": 11,
+   "examples": []
+  },
+  "E_chain_line": {
+   "pass": true,
+   "n": 26400,
+   "examples": []
+  },
+  "hash_E_test": {
+   "pass": true,
+   "n": 26400,
+   "examples": []
+  },
+  "ctrl_ncalls": {
+   "pass": true,
+   "n": 79200,
+   "examples": []
+  },
+  "ctrl_hash": {
+   "pass": true,
+   "n": 664600,
+   "examples": []
+  },
+  "ctrl_nest_le_D": {
+   "pass": true,
+   "n": 664600,
+   "examples": []
+  },
+  "ctrl_call_gold": {
+   "pass": true,
+   "n": 664600,
+   "examples": []
+  }
+ },
+ "smoke": false,
+ "wall_s": 29.868040323257446,
+ "generated": "2026-10-10T15:28:41"
+}

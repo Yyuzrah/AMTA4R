@@ -1,0 +1,12 @@
+{
+ "0.8": {
+  "dhat": 2,
+  "D": 2,
+  "file": "T_H_D2_test.jsonl"
+ },
+ "0.9": {
+  "dhat": 1,
+  "D": 1,
+  "file": "T_H_D1_test.jsonl"
+ }
+}

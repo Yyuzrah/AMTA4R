@@ -1,0 +1,26 @@
+# Regenerable or large artifacts (not part of the repository)
+/data/
+/checkpoints/
+/outputs/
+wandb/
+/wandb_logs/
+/logs/
+__pycache__/
+*.pyc
+
+# Written by scripts/submit_*.py and src/eval_flexible.py
+/configs/*/
+/scripts/sbatch_*/
+/analysis/*/
+
+# gbc/: generated trajectories and unpacked label files
+/gbc/data/fresh_*.json
+/gbc/labels/*.jsonl
+
+# extensions/: downloaded datasets and tables extracted from them, tokenized inputs
+/extensions/structural_audit/data/
+/extensions/lemma2_pretrained/results/inputs.json
+
+# extensions/: PNG previews written next to the PDF figures
+/extensions/lemma2_pretrained/results/*.png
+/extensions/structural_audit/*.png

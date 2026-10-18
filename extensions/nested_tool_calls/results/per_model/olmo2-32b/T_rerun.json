@@ -1,0 +1,11 @@
+{
+ "model": "olmo2-32b",
+ "task": "T",
+ "n": 240,
+ "acc_stored": 0.23333333333333334,
+ "acc_rerun": 0.23333333333333334,
+ "abs_diff": 0.0,
+ "identical_outputs": 0.9416666666666667,
+ "pass": true,
+ "time": "2026-10-10T14:47:31"
+}

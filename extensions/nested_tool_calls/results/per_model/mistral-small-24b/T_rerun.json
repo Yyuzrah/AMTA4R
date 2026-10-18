@@ -1,0 +1,11 @@
+{
+ "model": "mistral-small-24b",
+ "task": "T",
+ "n": 240,
+ "acc_stored": 0.325,
+ "acc_rerun": 0.32083333333333336,
+ "abs_diff": 0.004166666666666667,
+ "identical_outputs": 0.8416666666666667,
+ "pass": true,
+ "time": "2026-10-10T14:52:35"
+}

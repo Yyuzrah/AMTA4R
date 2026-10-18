@@ -1,0 +1,11 @@
+{
+ "model": "phi4-14b",
+ "task": "T",
+ "n": 240,
+ "acc_stored": 0.29583333333333334,
+ "acc_rerun": 0.2833333333333333,
+ "abs_diff": 0.0125,
+ "identical_outputs": 0.8666666666666667,
+ "pass": true,
+ "time": "2026-10-10T14:43:04"
+}

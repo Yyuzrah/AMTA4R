@@ -1,0 +1,12 @@
+{
+  "train_bfs_unique": 449424,
+  "train_dfs_unique": 449523,
+  "train_mixed_unique": 449551,
+  "train_union_unique": 1128109,
+  "fresh_bfs_in_any_train": 0.3794705882352941,
+  "fresh_bfs_in_train_mixed": 0.18941176470588236,
+  "fresh_dfs_in_any_train": 0.3786470588235294,
+  "fresh_dfs_in_train_mixed": 0.1913529411764706,
+  "fresh_mixed_in_any_train": 0.3715294117647059,
+  "fresh_mixed_in_train_mixed": 0.1901764705882353
+}

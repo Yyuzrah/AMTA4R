@@ -1,0 +1,82 @@
+{
+ "f1": {
+  "nops_correct": {
+   "auc": 0.7971326525967777,
+   "auc_sd": 0.0026592240703941852,
+   "mcf": 0.2723374774871393,
+   "mcf_sd": 0.005207937377955725,
+   "pooled_auc": 0.795945725751636,
+   "pooled_mcf": 0.2723374742711845
+  },
+  "nops_loss": {
+   "auc": 0.7971326525967776,
+   "auc_sd": 0.0026592240703941414,
+   "mcf": 0.27235684857319387,
+   "mcf_sd": 0.005226911725504094,
+   "pooled_auc": 0.7956008572111489,
+   "pooled_mcf": 0.27235684535166216
+  },
+  "acc_3ops": [
+   0.7966068022886205,
+   25168
+  ],
+  "intrain_frac_3ops": 0.7347425301970757,
+  "acc_4ops": [
+   0.20231958762886598,
+   24832
+  ],
+  "intrain_frac_4ops": 0.013490657216494846,
+  "overlap_total": 0.37654,
+  "overlap_share_3ops": 0.9822064056939501,
+  "notintrain_share_4ops": 0.7858403105251339,
+  "dup_groups": 1344,
+  "dup_inconsistent": 0,
+  "dup_items": 2708,
+  "sorted_dup_groups": 1803,
+  "sorted_dup_inconsistent": 52,
+  "noise_floor_p95": 0.03727243706779715,
+  "noise_floor_median": 0.027385469197462542,
+  "ncells": 54,
+  "r2meas_nops": 0.968736433111354
+ },
+ "f2": {
+  "nops_correct": {
+   "auc": 0.8532581724622823,
+   "auc_sd": 0.01332156290013008,
+   "mcf": 0.3999545506654309,
+   "mcf_sd": 0.036158448795863926,
+   "pooled_auc": 0.8458281330005121,
+   "pooled_mcf": 0.39995356033631035
+  },
+  "nops_loss": {
+   "auc": 0.8532581724622823,
+   "auc_sd": 0.013321562900130063,
+   "mcf": 0.3999545506654309,
+   "mcf_sd": 0.03615844879586393,
+   "pooled_auc": 0.845828133000512,
+   "pooled_mcf": 0.39995356033631047
+  },
+  "acc_3ops": [
+   0.8307012002526848,
+   1583
+  ],
+  "intrain_frac_3ops": 0.7327858496525584,
+  "acc_4ops": [
+   0.12208892025405788,
+   1417
+  ],
+  "intrain_frac_4ops": 0.012702893436838392,
+  "overlap_total": 0.39266666666666666,
+  "overlap_share_3ops": 0.9847198641765704,
+  "notintrain_share_4ops": 0.7678375411635565,
+  "dup_groups": 87,
+  "dup_inconsistent": 0,
+  "dup_items": 175,
+  "sorted_dup_groups": 88,
+  "sorted_dup_inconsistent": 0,
+  "noise_floor_p95": 0.06982353558805383,
+  "noise_floor_median": 0.046446756714347975,
+  "ncells": 18,
+  "r2meas_nops": 0.9637355580501668
+ }
+}

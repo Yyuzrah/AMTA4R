@@ -1,0 +1,3 @@
+model,checkpoint,encoding,problems,unedited_success,problems_with_site
+f1,small_deep_mixed_rope,RoPE,3000,0.5233333333333333,2128
+f2,large_deep_bfs_ape,APE,3000,0.475,1143

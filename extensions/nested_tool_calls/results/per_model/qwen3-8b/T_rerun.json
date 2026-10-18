@@ -1,0 +1,11 @@
+{
+ "model": "qwen3-8b",
+ "task": "T",
+ "n": 240,
+ "acc_stored": 0.22083333333333333,
+ "acc_rerun": 0.225,
+ "abs_diff": 0.004166666666666667,
+ "identical_outputs": 0.9125,
+ "pass": true,
+ "time": "2026-10-10T14:39:52"
+}

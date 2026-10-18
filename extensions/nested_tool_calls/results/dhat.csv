@@ -1,0 +1,12 @@
+model,hub_id,family,parameters_b,dhat_0.8,dhat_ci95_low_0.8,dhat_ci95_high_0.8,levels_per_call_0.8,dhat_0.9,dhat_ci95_low_0.9,dhat_ci95_high_0.9,levels_per_call_0.9,dhat_test_0.8,dhat_test_0.9,cal_accuracy_d1_d2_ge_0.8
+qwen2.5-7b,Qwen/Qwen2.5-7B-Instruct,qwen2.5,7,1,1.0,1.0,1,1,0.0,1.0,1,1,1,False
+qwen2.5-14b,Qwen/Qwen2.5-14B-Instruct,qwen2.5,14,1,1.0,2.0,1,1,1.0,1.0,1,1,1,False
+olmo2-7b,allenai/OLMo-2-1124-7B-Instruct,olmo2,7,1,0.0,1.0,1,0,0.0,1.0,1,1,0,False
+olmo2-13b,allenai/OLMo-2-1124-13B-Instruct,olmo2,13,1,1.0,1.0,1,1,0.0,1.0,1,1,1,False
+qwen3-8b,Qwen/Qwen3-8B,qwen3,8,1,1.0,1.0,1,1,1.0,1.0,1,1,1,False
+qwen3-14b,Qwen/Qwen3-14B,qwen3,14,2,2.0,2.0,2,1,1.0,2.0,1,2,1,True
+phi4-14b,microsoft/phi-4,phi4,14,2,2.0,2.0,2,2,1.0,2.0,2,2,2,True
+qwen2.5-32b,Qwen/Qwen2.5-32B-Instruct,qwen2.5,32,3,2.0,3.0,3,2,2.0,2.0,2,3,2,True
+olmo2-32b,allenai/OLMo-2-0325-32B-Instruct,olmo2,32,1,1.0,2.0,1,0,0.0,1.0,1,1,1,False
+qwen3-32b,Qwen/Qwen3-32B,qwen3,32,1,1.0,2.0,1,1,1.0,1.0,1,1,1,False
+mistral-small-24b,mistralai/Mistral-Small-24B-Instruct-2501,mistral,24,2,2.0,2.0,2,1,1.0,2.0,1,1,1,True

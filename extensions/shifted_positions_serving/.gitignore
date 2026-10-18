@@ -1,0 +1,10 @@
+# Written when the experiment is run (see the README): few-shot items, model records, item files and plans,
+# unit outputs and markers, and the output of analyze.py.
+/fewshot/
+/meta/
+/data/
+/analysis/
+/results/raw/
+/results/rescue/
+/results/markers/
+/results/gatecheck.json

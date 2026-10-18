@@ -1,0 +1,8 @@
+# Environment for scripts/gen_babyai.py (BabyAI levels and bot trajectories of App. M.2). Python 3.11.11.
+# minigrid is the fork used by BALROG (version 2.3.1, default branch), which provides BabyAI-MixedTrainLocal-v0
+# and the BabyAI bot (minigrid.utils.baby_ai_bot); the PyPI release of minigrid has neither.
+minigrid @ git+https://github.com/BartekCupial/Minigrid.git
+gymnasium==1.3.0
+numpy==2.4.6
+pandas==3.0.6
+pygame==2.6.1

@@ -1,0 +1,14 @@
+# Written when the experiment is rerun end to end (see the README): environments, caches, images, episodes,
+# grading output, logs, the OpenHands benchmarks checkout and downloaded or generated inputs.
+/cache/
+/envs/
+/sif/
+/runs/
+/runs_archive/
+/eval/
+/logs/
+/work/
+/results/proxy/
+/code/benchmarks/
+/data/*
+!/data/instances_main.txt

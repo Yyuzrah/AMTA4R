@@ -1,0 +1,9 @@
+# Environment for the classifier analysis in gbc/ (scikit-learn 1.5.2) and for extensions/coordinates_12_to_34/.
+# Python 3.10.19.
+numpy==2.2.6
+scipy==1.15.3
+scikit-learn==1.5.2
+joblib==1.6.0
+threadpoolctl==3.7.0
+ijson==3.5.1
+pot==0.9.5

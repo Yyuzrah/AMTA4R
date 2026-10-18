@@ -1,0 +1,8 @@
+# Written when the experiment is run (see the README): the model records of fetch_models.py (meta/), the raw outputs,
+# checkpoints and run records of run2.py (results/<model>/), the output of analyze2.py and verify2.py (analysis/) and
+# runs in quick test mode (smoke/).
+/meta/
+/analysis/
+/smoke/
+/results/*/
+!/results/per_model/

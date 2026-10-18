@@ -1,0 +1,118 @@
+{
+  "val_bfs": {
+    "n": 2000,
+    "oracle_acc_uncapped": 0.6735,
+    "oracle_acc_prompt+512_new_tokens": 0.4645,
+    "oracle_acc_within_1024_train_ctx": 0.5315,
+    "frac_len_gt_1024": 0.3145,
+    "len_p50_p90_p99_max": [
+      395,
+      2856,
+      7825,
+      8481
+    ],
+    "chi1_counts": {
+      "2": 832,
+      "3": 575,
+      "4": 593
+    },
+    "chi6_mean": 0.04573081569932401
+  },
+  "val_dfs": {
+    "n": 2000,
+    "oracle_acc_uncapped": 0.8705,
+    "oracle_acc_prompt+512_new_tokens": 0.486,
+    "oracle_acc_within_1024_train_ctx": 0.5965,
+    "frac_len_gt_1024": 0.332,
+    "len_p50_p90_p99_max": [
+      469,
+      9665,
+      19447,
+      43324
+    ],
+    "chi1_counts": {
+      "0": 93,
+      "2": 960,
+      "3": 947
+    },
+    "chi6_mean": 0.17566256108134984
+  },
+  "val_mixed": {
+    "n": 2000,
+    "oracle_acc_uncapped": 0.7835,
+    "oracle_acc_prompt+512_new_tokens": 0.4915,
+    "oracle_acc_within_1024_train_ctx": 0.5775,
+    "frac_len_gt_1024": 0.317,
+    "len_p50_p90_p99_max": [
+      437,
+      5678,
+      17387,
+      43324
+    ],
+    "chi1_counts": {
+      "0": 48,
+      "2": 918,
+      "3": 747,
+      "4": 287
+    },
+    "chi6_mean": 0.10886051305383444
+  },
+  "train_bfs_sample20000": {
+    "n": 20000,
+    "oracle_acc_uncapped": 0.6662,
+    "oracle_acc_prompt+512_new_tokens": 0.45615,
+    "oracle_acc_within_1024_train_ctx": 0.5194,
+    "frac_len_gt_1024": 0.3313,
+    "len_p50_p90_p99_max": [
+      399,
+      2866,
+      7885,
+      8884
+    ],
+    "chi1_counts": {
+      "2": 8233,
+      "3": 5522,
+      "4": 6245
+    },
+    "chi6_mean": 0.04726939994562417
+  },
+  "train_dfs_sample20000": {
+    "n": 20000,
+    "oracle_acc_uncapped": 0.8735,
+    "oracle_acc_prompt+512_new_tokens": 0.48945,
+    "oracle_acc_within_1024_train_ctx": 0.60565,
+    "frac_len_gt_1024": 0.32685,
+    "len_p50_p90_p99_max": [
+      469,
+      9455,
+      19202,
+      40307
+    ],
+    "chi1_counts": {
+      "0": 830,
+      "2": 9603,
+      "3": 9567
+    },
+    "chi6_mean": 0.174428120701015
+  },
+  "train_mixed_sample20000": {
+    "n": 20000,
+    "oracle_acc_uncapped": 0.69555,
+    "oracle_acc_prompt+512_new_tokens": 0.4536,
+    "oracle_acc_within_1024_train_ctx": 0.5213,
+    "frac_len_gt_1024": 0.31945,
+    "len_p50_p90_p99_max": [
+      399,
+      4985,
+      15886,
+      40624
+    ],
+    "chi1_counts": {
+      "0": 977,
+      "2": 8524,
+      "3": 6771,
+      "4": 3728
+    },
+    "chi6_mean": 0.08817069516386837
+  }
+}

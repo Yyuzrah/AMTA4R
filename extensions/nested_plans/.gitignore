@@ -1,0 +1,5 @@
+# Written when the experiment is run (see the README): the training runs, the re-trained runs, the unit-test record
+# and the output of analyze.py.
+/runs/
+/runs_ext/
+/analysis/
