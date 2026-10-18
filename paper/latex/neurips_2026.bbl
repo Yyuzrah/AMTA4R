@@ -1,0 +1,629 @@
+\begin{thebibliography}{68}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abdin et~al.(2024)Abdin, Aneja, Behl, et~al.]{abdin2024phi4}
+Marah Abdin, Jyoti Aneja, Harkirat Behl, et~al.
+\newblock {Phi-4} technical report, 2024.
+\newblock URL \url{https://arxiv.org/abs/2412.08905}.
+
+\bibitem[Badertdinov et~al.(2025)Badertdinov, Golubev, Nekrashevich, Shevtsov,
+  Karasik, Andriushchenko, Trofimova, Litvintseva, and
+  Yangel]{badertdinov2025swerebench}
+Ibragim Badertdinov, Alexander Golubev, Maksim Nekrashevich, Anton Shevtsov,
+  Simon Karasik, Andrei Andriushchenko, Maria Trofimova, Daria Litvintseva, and
+  Boris Yangel.
+\newblock {SWE-rebench}: An automated pipeline for task collection and
+  decontaminated evaluation of software engineering agents.
+\newblock In \emph{Advances in Neural Information Processing Systems (Datasets
+  and Benchmarks Track)}, volume~38. Curran Associates, Inc., 2025.
+\newblock \doi{10.52202/085713-0788}.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2025/hash/21bec6ace947b1b58967b945c8ac0f10-Abstract-Datasets_and_Benchmarks_Track.html}.
+
+\bibitem[Barron(1993)]{Barron1993}
+Andrew Barron.
+\newblock Universal approximation bounds for superpositions of a sigmoidal
+  function.
+\newblock \emph{IEEE Transactions on Information Theory}, 39\penalty0
+  (3):\penalty0 930--945, 1993.
+\newblock \doi{10.1109/18.256500}.
+
+\bibitem[Ben~Allal et~al.(2025)Ben~Allal, Lozhkov, Bakouch,
+  Mart{\'\i}n~Bl{\'a}zquez, Penedo, Tunstall, Marafioti, Piqueres~Lajar{\'\i}n,
+  Kydl{\'\i}{\v{c}}ek, Srivastav, Lochner, Fahlgren, Nguyen, Burtenshaw,
+  Fourrier, Zhao, Larcher, Morlon, Zakka, Raffel, von Werra, and
+  Wolf]{allal2025smollm2}
+Loubna Ben~Allal, Anton Lozhkov, Elie Bakouch, Gabriel
+  Mart{\'\i}n~Bl{\'a}zquez, Guilherme Penedo, Lewis Tunstall, Andr{\'e}s
+  Marafioti, Agust{\'\i}n Piqueres~Lajar{\'\i}n, Hynek Kydl{\'\i}{\v{c}}ek,
+  Vaibhav Srivastav, Joshua Lochner, Caleb Fahlgren, Xuan-Son Nguyen, Ben
+  Burtenshaw, Cl{\'e}mentine Fourrier, Haojun Zhao, Hugo Larcher, Mathieu
+  Morlon, Cyril Zakka, Colin Raffel, Leandro von Werra, and Thomas Wolf.
+\newblock {SmolLM2}: When smol goes big --- data-centric training of a fully
+  open small language model.
+\newblock In \emph{Second Conference on Language Modeling (COLM)}, 2025.
+\newblock URL \url{https://openreview.net/forum?id=3JiCl2A14H}.
+\newblock arXiv:2502.02737.
+
+\bibitem[Biderman et~al.(2023)Biderman, Schoelkopf, Anthony, Bradley, O'Brien,
+  Hallahan, Khan, Purohit, Prashanth, Raff, Skowron, Sutawika, and van~der
+  Wal]{biderman2023pythia}
+Stella Biderman, Hailey Schoelkopf, Quentin Anthony, Herbie Bradley, Kyle
+  O'Brien, Eric Hallahan, Mohammad~Aflah Khan, Shivanshu Purohit, {USVSN}~Sai
+  Prashanth, Edward Raff, Aviya Skowron, Lintang Sutawika, and Oskar van~der
+  Wal.
+\newblock Pythia: A suite for analyzing large language models across training
+  and scaling.
+\newblock In \emph{Proceedings of the 40th International Conference on Machine
+  Learning}, volume 202 of \emph{Proceedings of Machine Learning Research},
+  pages 2397--2430. PMLR, 2023.
+\newblock URL \url{https://proceedings.mlr.press/v202/biderman23a.html}.
+
+\bibitem[{BigScience Workshop}(2022)]{bigscience2022bloom}
+{BigScience Workshop}.
+\newblock {BLOOM}: A 176{B}-parameter open-access multilingual language model,
+  2022.
+\newblock URL \url{https://arxiv.org/abs/2211.05100}.
+
+\bibitem[Black et~al.(2021)Black, Gao, Wang, Leahy, and
+  Biderman]{black2021gptneo}
+Sid Black, Leo Gao, Phil Wang, Connor Leahy, and Stella Biderman.
+\newblock {GPT-Neo}: Large scale autoregressive language modeling with
+  {Mesh-Tensorflow}.
+\newblock Zenodo, March 2021.
+\newblock URL \url{https://doi.org/10.5281/zenodo.5297715}.
+\newblock Software, version 1.0.
+
+\bibitem[Chevalier-Boisvert et~al.(2019)Chevalier-Boisvert, Bahdanau, Lahlou,
+  Willems, Saharia, Nguyen, and Bengio]{chevalierboisvert2019babyai}
+Maxime Chevalier-Boisvert, Dzmitry Bahdanau, Salem Lahlou, Lucas Willems,
+  Chitwan Saharia, Thien~Huu Nguyen, and Yoshua Bengio.
+\newblock {BabyAI}: A platform to study the sample efficiency of grounded
+  language learning.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2019.
+\newblock URL \url{https://openreview.net/forum?id=rJeXCo0cYX}.
+
+\bibitem[Chevalier-Boisvert et~al.(2023)Chevalier-Boisvert, Dai, Towers,
+  de~Lazcano, Willems, Lahlou, Pal, Castro, and
+  Terry]{chevalierboisvert2023minigrid}
+Maxime Chevalier-Boisvert, Bolun Dai, Mark Towers, Rodrigo de~Lazcano, Lucas
+  Willems, Salem Lahlou, Suman Pal, Pablo~Samuel Castro, and Jordan Terry.
+\newblock {Minigrid} \& {Miniworld}: Modular \& customizable reinforcement
+  learning environments for goal-oriented tasks.
+\newblock In \emph{Advances in Neural Information Processing Systems (Datasets
+  and Benchmarks Track)}, volume~36, pages 73383--73394. Curran Associates,
+  Inc., 2023.
+\newblock \doi{10.52202/075280-3209}.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2023/file/e8916198466e8ef218a2185a491b49fa-Paper-Datasets_and_Benchmarks.pdf}.
+
+\bibitem[Courty et~al.(2017)Courty, Flamary, Tuia, and
+  Rakotomamonjy]{courty2016optimaltransportdomainadaptation}
+Nicolas Courty, Rémi Flamary, Devis Tuia, and Alain Rakotomamonjy.
+\newblock Optimal transport for domain adaptation.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 39\penalty0 (9):\penalty0 1853--1865, 2017.
+\newblock \doi{10.1109/TPAMI.2016.2615921}.
+\newblock URL \url{https://arxiv.org/abs/1507.00504}.
+
+\bibitem[Cuturi(2013)]{cuturi2013sinkhorndistanceslightspeedcomputation}
+Marco Cuturi.
+\newblock Sinkhorn distances: Lightspeed computation of optimal transport.
+\newblock In \emph{Advances in Neural Information Processing Systems}, pages
+  2292--2300, 2013.
+\newblock URL \url{https://arxiv.org/abs/1306.0895}.
+
+\bibitem[DeepSeek-AI(2025)]{deepseekai2025deepseekr1incentivizingreasoningcapability}
+DeepSeek-AI.
+\newblock {DeepSeek-R1}: Incentivizing reasoning capability in {LLMs} via
+  reinforcement learning, 2025.
+\newblock URL \url{https://arxiv.org/abs/2501.12948}.
+
+\bibitem[Eldan and Shamir(2016)]{eldan2016powerdepthfeedforwardneural}
+Ronen Eldan and Ohad Shamir.
+\newblock The power of depth for feedforward neural networks.
+\newblock In \emph{Proceedings of the 29th Annual Conference on Learning
+  Theory}, volume~49 of \emph{Proceedings of Machine Learning Research}, pages
+  907--940, 2016.
+\newblock URL \url{https://arxiv.org/abs/1512.03965}.
+
+\bibitem[{Embodied-CoT}(2024)]{embodiedcot2024bridgefeatures}
+{Embodied-CoT}.
+\newblock {Embodied-CoT/embodied\_features\_bridge}.
+\newblock Hugging Face dataset, 2024.
+\newblock URL
+  \url{https://huggingface.co/datasets/Embodied-CoT/embodied_features_bridge}.
+\newblock Embodied features and reasonings of the {ECoT} project for the
+  {BridgeData V2} demonstrations. MIT license. Accessed 2026.
+
+\bibitem[Feng et~al.(2023)Feng, Zhang, Gu, Ye, He, and
+  Wang]{feng2023revealingmysterychainthought}
+Guhao Feng, Bohang Zhang, Yuntian Gu, Haotian Ye, Di~He, and Liwei Wang.
+\newblock Towards revealing the mystery behind chain of thought: A theoretical
+  perspective.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2305.15408}.
+
+\bibitem[Flamary et~al.(2021)Flamary, Courty, Gramfort, Alaya, Boisbunon,
+  Chambon, Chapel, Corenflos, Fatras, Fournier, Gautheron, Gayraud, Janati,
+  Rakotomamonjy, Redko, Rolet, Schutz, Seguy, Sutherland, Tavenard, Tong, and
+  Vayer]{flamary2021pot}
+Rémi Flamary, Nicolas Courty, Alexandre Gramfort, Mokhtar~Z. Alaya, Aurélie
+  Boisbunon, Stanislas Chambon, Laetitia Chapel, Adrien Corenflos, Kilian
+  Fatras, Nemo Fournier, Léo Gautheron, Nathalie~T.H. Gayraud, Hicham Janati,
+  Alain Rakotomamonjy, Ievgen Redko, Antoine Rolet, Antony Schutz, Vivien
+  Seguy, Danica~J. Sutherland, Romain Tavenard, Alexander Tong, and Titouan
+  Vayer.
+\newblock {POT}: {P}ython optimal transport.
+\newblock \emph{Journal of Machine Learning Research}, 22\penalty0
+  (78):\penalty0 1--8, 2021.
+\newblock URL \url{http://jmlr.org/papers/v22/20-451.html}.
+
+\bibitem[Gandhi et~al.(2024)Gandhi, Lee, Grand, Liu, Cheng, Sharma, and
+  Goodman]{gandhi2024streamsearchsoslearning}
+Kanishk Gandhi, Denise Lee, Gabriel Grand, Muxin Liu, Winson Cheng, Archit
+  Sharma, and Noah~D. Goodman.
+\newblock {Stream of Search (SoS)}: Learning to search in language.
+\newblock In \emph{First Conference on Language Modeling}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2404.03683}.
+
+\bibitem[Hahn(2020)]{Hahn_2020}
+Michael Hahn.
+\newblock Theoretical limitations of self-attention in neural sequence models.
+\newblock \emph{Transactions of the Association for Computational Linguistics},
+  8:\penalty0 156--171, December 2020.
+\newblock ISSN 2307-387X.
+\newblock \doi{10.1162/tacl_a_00306}.
+\newblock URL \url{http://dx.doi.org/10.1162/tacl_a_00306}.
+
+\bibitem[He et~al.(2024)He, Feng, Luo, Yang, Wang, Xu, Zhang, Yang, and
+  He]{he2024stoneshitbirdbilevel}
+Zhenyu He, Guhao Feng, Shengjie Luo, Kai Yang, Liwei Wang, Jingjing Xu, Zhi
+  Zhang, Hongxia Yang, and Di~He.
+\newblock Two stones hit one bird: Bilevel positional encoding for better
+  length extrapolation.
+\newblock In \emph{Proceedings of the 41st International Conference on Machine
+  Learning}, volume 235 of \emph{Proceedings of Machine Learning Research},
+  pages 17858--17876, 2024.
+\newblock URL \url{https://arxiv.org/abs/2401.16421}.
+
+\bibitem[Jimenez et~al.(2024)Jimenez, Yang, Wettig, Yao, Pei, Press, and
+  Narasimhan]{jimenez2024swebench}
+Carlos~E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir
+  Press, and Karthik Narasimhan.
+\newblock {SWE-bench}: Can language models resolve real-world {GitHub} issues?
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, pages 54107--54157, 2024.
+\newblock URL
+  \url{https://proceedings.iclr.cc/paper_files/paper/2024/hash/edac78c3e300629acfe6cbe9ca88fb84-Abstract-Conference.html}.
+
+\bibitem[Kazemnejad et~al.(2023)Kazemnejad, Padhi, Ramamurthy, Das, and
+  Reddy]{kazemnejad2023impactpositionalencodinglength}
+Amirhossein Kazemnejad, Inkit Padhi, Karthikeyan~Natesan Ramamurthy, Payel Das,
+  and Siva Reddy.
+\newblock The impact of positional encoding on length generalization in
+  transformers.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2305.19466}.
+
+\bibitem[Kwon et~al.(2023)Kwon, Li, Zhuang, Sheng, Zheng, Yu, Gonzalez, Zhang,
+  and Stoica]{kwon2023vllm}
+Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying Sheng, Lianmin Zheng, Cody~Hao Yu,
+  Joseph~E. Gonzalez, Hao Zhang, and Ion Stoica.
+\newblock Efficient memory management for large language model serving with
+  {PagedAttention}.
+\newblock In \emph{Proceedings of the 29th Symposium on Operating Systems
+  Principles (SOSP)}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2309.06180}.
+
+\bibitem[Lambert et~al.(2024)Lambert, Morrison, Pyatkin, Huang, Ivison,
+  Brahman, Miranda, Liu, Dziri, Lyu, Gu, Malik, Graf, Hwang, Yang, Bras,
+  Tafjord, Wilhelm, Soldaini, Smith, Wang, Dasigi, and
+  Hajishirzi]{lambert2024tulu}
+Nathan Lambert, Jacob Morrison, Valentina Pyatkin, Shengyi Huang, Hamish
+  Ivison, Faeze Brahman, Lester James~V. Miranda, Alisa Liu, Nouha Dziri, Shane
+  Lyu, Yuling Gu, Saumya Malik, Victoria Graf, Jena~D. Hwang, Jiangjiang Yang,
+  Ronan~Le Bras, Oyvind Tafjord, Chris Wilhelm, Luca Soldaini, Noah~A. Smith,
+  Yizhong Wang, Pradeep Dasigi, and Hannaneh Hajishirzi.
+\newblock Tulu 3: Pushing frontiers in open language model post-training.
+\newblock \emph{arXiv preprint arXiv:2411.15124}, 2024.
+
+\bibitem[Levine et~al.(2021)Levine, Wies, Sharir, Bata, and
+  Shashua]{levine2021depthtowidthinterplayselfattention}
+Yoav Levine, Noam Wies, Or~Sharir, Hofit Bata, and Amnon Shashua.
+\newblock The depth-to-width interplay in self-attention, 2021.
+\newblock URL \url{https://arxiv.org/abs/2006.12467}.
+
+\bibitem[Li et~al.(2024)Li, You, Guruganesh, Ainslie, Ontanon, Zaheer, Sanghai,
+  Yang, Kumar, and
+  Bhojanapalli]{li2024functionalinterpolationrelativepositions}
+Shanda Li, Chong You, Guru Guruganesh, Joshua Ainslie, Santiago Ontanon, Manzil
+  Zaheer, Sumit Sanghai, Yiming Yang, Sanjiv Kumar, and Srinadh Bhojanapalli.
+\newblock Functional interpolation for relative positions improves long context
+  transformers.
+\newblock In \emph{International Conference on Learning Representations}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2310.04418}.
+
+\bibitem[Lightman et~al.(2024)Lightman, Kosaraju, Burda, Edwards, Baker, Lee,
+  Leike, Schulman, Sutskever, and Cobbe]{lightman2023let}
+Hunter Lightman, Vineet Kosaraju, Yuri Burda, Harrison Edwards, Bowen Baker,
+  Teddy Lee, Jan Leike, John Schulman, Ilya Sutskever, and Karl Cobbe.
+\newblock Let's verify step by step.
+\newblock In \emph{The Twelfth International Conference on Learning
+  Representations}, 2024.
+
+\bibitem[Makovoz(1996)]{MAKOVOZ199698}
+Y.~Makovoz.
+\newblock Random approximants and neural networks.
+\newblock \emph{Journal of Approximation Theory}, 85\penalty0 (1):\penalty0
+  98--109, 1996.
+\newblock ISSN 0021-9045.
+\newblock \doi{10.1006/jath.1996.0031}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0021904596900313}.
+
+\bibitem[McFadden(1979)]{mcfadden1979quantitative}
+Daniel McFadden.
+\newblock Quantitative methods for analysing travel behaviour of individuals:
+  Some recent developments.
+\newblock In David~A. Hensher and Peter~R. Stopher, editors, \emph{Behavioural
+  Travel Modelling}, pages 279--318. Croom Helm, London, 1979.
+
+\bibitem[Merrill and
+  Sabharwal(2023)]{merrill2023parallelismtradeofflimitationslogprecision}
+William Merrill and Ashish Sabharwal.
+\newblock The parallelism tradeoff: Limitations of log-precision transformers.
+\newblock \emph{Transactions of the Association for Computational Linguistics},
+  11:\penalty0 531--545, 2023.
+\newblock \doi{10.1162/tacl_a_00562}.
+\newblock URL \url{https://arxiv.org/abs/2207.00729}.
+
+\bibitem[{Mistral AI}(2025)]{mistral2025small3}
+{Mistral AI}.
+\newblock {Mistral Small 3}.
+\newblock Mistral AI news, January 2025.
+\newblock URL \url{https://mistral.ai/news/mistral-small-3}.
+\newblock Model: Mistral-Small-24B-Instruct-2501. Accessed 2026.
+
+\bibitem[Mityagin(2020)]{mityagin2020zeroset}
+B.~S. Mityagin.
+\newblock The zero set of a real analytic function.
+\newblock \emph{Mathematical Notes}, 107\penalty0 (3--4):\penalty0 529--530,
+  2020.
+\newblock \doi{10.1134/S0001434620030189}.
+\newblock URL \url{https://doi.org/10.1134/S0001434620030189}.
+
+\bibitem[{Nebius}(2024)]{nebius2024sweagenttrajectories}
+{Nebius}.
+\newblock {nebius/SWE-agent-trajectories}.
+\newblock Hugging Face dataset, 2024.
+\newblock URL
+  \url{https://huggingface.co/datasets/nebius/SWE-agent-trajectories}.
+\newblock CC-BY-4.0 license. Accessed 2026.
+
+\bibitem[OpenAI(2024{\natexlab{a}})]{o1}
+OpenAI.
+\newblock Learning to reason with {LLMs}.
+\newblock OpenAI blog, 2024{\natexlab{a}}.
+\newblock URL \url{https://openai.com/index/learning-to-reason-with-llms/}.
+\newblock Accessed 2025.
+
+\bibitem[OpenAI(2024{\natexlab{b}})]{openai2024swebenchverified}
+OpenAI.
+\newblock Introducing {SWE-bench Verified}.
+\newblock OpenAI blog, August 2024{\natexlab{b}}.
+\newblock URL \url{https://openai.com/index/introducing-swe-bench-verified/}.
+\newblock Accessed 2026.
+
+\bibitem[Paglieri et~al.(2024)Paglieri, Cupia{\l}, Coward, Piterbarg, Wolczyk,
+  Khan, Pignatelli, Kuci{\'n}ski, Pinto, Fergus, Foerster, Parker-Holder, and
+  Rockt{\"a}schel]{paglieri2024balrog}
+Davide Paglieri, Bart{\l}omiej Cupia{\l}, Samuel Coward, Ulyana Piterbarg,
+  Maciej Wolczyk, Akbir Khan, Eduardo Pignatelli, {\L}ukasz Kuci{\'n}ski,
+  Lerrel Pinto, Rob Fergus, Jakob~Nicolaus Foerster, Jack Parker-Holder, and
+  Tim Rockt{\"a}schel.
+\newblock {BALROG}: Benchmarking agentic {LLM} and {VLM} reasoning on games.
+\newblock \emph{arXiv preprint arXiv:2411.13543}, 2024.
+
+\bibitem[Pedregosa et~al.(2011)Pedregosa, Varoquaux, Gramfort, Michel, Thirion,
+  Grisel, Blondel, Prettenhofer, Weiss, Dubourg, Vanderplas, Passos,
+  Cournapeau, Brucher, Perrot, and Duchesnay]{pedregosa2011scikit}
+Fabian Pedregosa, Ga{\"e}l Varoquaux, Alexandre Gramfort, Vincent Michel,
+  Bertrand Thirion, Olivier Grisel, Mathieu Blondel, Peter Prettenhofer, Ron
+  Weiss, Vincent Dubourg, Jake Vanderplas, Alexandre Passos, David Cournapeau,
+  Matthieu Brucher, Matthieu Perrot, and {\'E}douard Duchesnay.
+\newblock Scikit-learn: Machine learning in {P}ython.
+\newblock \emph{Journal of Machine Learning Research}, 12:\penalty0 2825--2830,
+  2011.
+
+\bibitem[Press et~al.(2022)Press, Smith, and
+  Lewis]{press2022trainshorttestlong}
+Ofir Press, Noah~A. Smith, and Mike Lewis.
+\newblock Train short, test long: Attention with linear biases enables input
+  length extrapolation.
+\newblock In \emph{International Conference on Learning Representations}, 2022.
+\newblock URL \url{https://arxiv.org/abs/2108.12409}.
+
+\bibitem[Prystawski et~al.(2023)Prystawski, Li, and
+  Goodman]{prystawski2023thinkstepstepreasoning}
+Ben Prystawski, Michael~Y. Li, and Noah~D. Goodman.
+\newblock Why think step by step? {R}easoning emerges from the locality of
+  experience.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2304.03843}.
+
+\bibitem[{Python Software Foundation}(2025)]{cpython31019}
+{Python Software Foundation}.
+\newblock {Python} 3.10.19.
+\newblock \url{https://www.python.org/downloads/release/python-31019/}, October
+  2025.
+\newblock Accessed 2026.
+
+\bibitem[{Qwen Team}(2024)]{qwen2024qwen25}
+{Qwen Team}.
+\newblock {Qwen2.5} technical report, 2024.
+\newblock URL \url{https://arxiv.org/abs/2412.15115}.
+
+\bibitem[{Qwen Team}(2025)]{qwen2025qwen3}
+{Qwen Team}.
+\newblock {Qwen3} technical report, 2025.
+\newblock URL \url{https://arxiv.org/abs/2505.09388}.
+
+\bibitem[Radford et~al.(2019)Radford, Wu, Child, Luan, Amodei, and
+  Sutskever]{radford2019language}
+Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, and Ilya
+  Sutskever.
+\newblock Language models are unsupervised multitask learners.
+\newblock Technical report, OpenAI, 2019.
+\newblock URL
+  \url{https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf}.
+
+\bibitem[Redko et~al.(2017)Redko, Habrard, and
+  Sebban]{redko2017theoreticalanalysisdomainadaptation}
+Ievgen Redko, Amaury Habrard, and Marc Sebban.
+\newblock Theoretical analysis of domain adaptation with optimal transport.
+\newblock In \emph{Machine Learning and Knowledge Discovery in Databases (ECML
+  PKDD 2017)}, pages 737--753, 2017.
+\newblock \doi{10.1007/978-3-319-71246-8_45}.
+\newblock URL \url{https://arxiv.org/abs/1610.04420}.
+
+\bibitem[Ruoss et~al.(2023)Ruoss, Delétang, Genewein, Grau-Moya, Csordás,
+  Bennani, Legg, and Veness]{ruoss2023randomizedpositionalencodingsboost}
+Anian Ruoss, Grégoire Delétang, Tim Genewein, Jordi Grau-Moya, Róbert
+  Csordás, Mehdi Bennani, Shane Legg, and Joel Veness.
+\newblock Randomized positional encodings boost length generalization of
+  transformers.
+\newblock In \emph{Proceedings of the 61st Annual Meeting of the Association
+  for Computational Linguistics (Volume 2: Short Papers)}, pages 1889--1903,
+  2023.
+\newblock URL \url{https://arxiv.org/abs/2305.16843}.
+
+\bibitem[Shridhar et~al.(2021)Shridhar, Yuan, C{\^o}t{\'e}, Bisk, Trischler,
+  and Hausknecht]{shridhar2021alfworld}
+Mohit Shridhar, Xingdi Yuan, Marc-Alexandre C{\^o}t{\'e}, Yonatan Bisk, Adam
+  Trischler, and Matthew Hausknecht.
+\newblock {ALFWorld}: Aligning text and embodied environments for interactive
+  learning.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2021.
+\newblock URL \url{https://openreview.net/forum?id=0IOX0YcCdTn}.
+
+\bibitem[Song et~al.(2024{\natexlab{a}})Song, Yin, Yue, Huang, Li, and
+  Lin]{song2024eto}
+Yifan Song, Da~Yin, Xiang Yue, Jie Huang, Sujian Li, and Bill~Yuchen Lin.
+\newblock Trial and error: Exploration-based trajectory optimization of {LLM}
+  agents.
+\newblock In \emph{Proceedings of the 62nd Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 7584--7600,
+  Bangkok, Thailand, August 2024{\natexlab{a}}. Association for Computational
+  Linguistics.
+\newblock \doi{10.18653/v1/2024.acl-long.409}.
+\newblock URL \url{https://aclanthology.org/2024.acl-long.409/}.
+
+\bibitem[Song et~al.(2024{\natexlab{b}})Song, Yin, Yue, Huang, Li, and
+  Lin]{song2024etodata}
+Yifan Song, Da~Yin, Xiang Yue, Jie Huang, Sujian Li, and Bill~Yuchen Lin.
+\newblock {ETO-SFT-Trajectory}: Expert trajectories for {ETO}.
+\newblock Hugging Face dataset, 2024{\natexlab{b}}.
+\newblock URL
+  \url{https://huggingface.co/datasets/agent-eto/eto-sft-trajectory}.
+\newblock Apache-2.0 license. Accessed 2026.
+
+\bibitem[Strobl et~al.(2024)Strobl, Merrill, Weiss, Chiang, and
+  Angluin]{Strobl_2024}
+Lena Strobl, William Merrill, Gail Weiss, David Chiang, and Dana Angluin.
+\newblock What formal languages can transformers express? {A} survey.
+\newblock \emph{Transactions of the Association for Computational Linguistics},
+  12:\penalty0 543--561, 2024.
+\newblock ISSN 2307-387X.
+\newblock \doi{10.1162/tacl_a_00663}.
+\newblock URL \url{http://dx.doi.org/10.1162/tacl_a_00663}.
+
+\bibitem[Su et~al.(2024)Su, Ahmed, Lu, Pan, Bo, and
+  Liu]{su2023roformerenhancedtransformerrotary}
+Jianlin Su, Murtadha Ahmed, Yu~Lu, Shengfeng Pan, Wen Bo, and Yunfeng Liu.
+\newblock {RoFormer}: Enhanced transformer with rotary position embedding.
+\newblock \emph{Neurocomputing}, 568:\penalty0 127063, 2024.
+\newblock \doi{10.1016/j.neucom.2023.127063}.
+\newblock URL \url{https://arxiv.org/abs/2104.09864}.
+
+\bibitem[{Team OLMo} et~al.(2024){Team OLMo}, Walsh, Soldaini,
+  et~al.]{olmo2024olmo2}
+{Team OLMo}, Pete Walsh, Luca Soldaini, et~al.
+\newblock 2 {OLMo} 2 furious, 2024.
+\newblock URL \url{https://arxiv.org/abs/2501.00656}.
+
+\bibitem[Trofimova et~al.(2025)Trofimova, Shevtsov, Badertdinov, Pyaev,
+  Karasik, and Golubev]{trofimova2025openhandstrajs}
+Maria Trofimova, Anton Shevtsov, Ibragim Badertdinov, Konstantin Pyaev, Simon
+  Karasik, and Alexander Golubev.
+\newblock {OpenHands} trajectories with {Qwen3-Coder-480B-A35B-Instruct}.
+\newblock Nebius blog, 2025.
+\newblock URL
+  \url{https://nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b}.
+\newblock Dataset:
+  \url{https://huggingface.co/datasets/nebius/SWE-rebench-openhands-trajectories}
+  (CC-BY-4.0 license). Accessed 2026.
+
+\bibitem[Tsybakov(2004)]{tsybakov2004optimal}
+Alexander~B. Tsybakov.
+\newblock {Optimal aggregation of classifiers in statistical learning}.
+\newblock \emph{The Annals of Statistics}, 32\penalty0 (1):\penalty0 135--166,
+  2004.
+\newblock \doi{10.1214/aos/1079120131}.
+\newblock URL \url{https://doi.org/10.1214/aos/1079120131}.
+
+\bibitem[Villani(2009)]{Villani2009}
+C{\'e}dric Villani.
+\newblock The {Wasserstein} distances.
+\newblock In \emph{Optimal Transport: Old and New}, pages 93--111. Springer,
+  Berlin, Heidelberg, 2009.
+\newblock ISBN 978-3-540-71050-9.
+\newblock \doi{10.1007/978-3-540-71050-9_6}.
+\newblock URL \url{https://doi.org/10.1007/978-3-540-71050-9_6}.
+
+\bibitem[Walke et~al.(2023)Walke, Black, Lee, Kim, Du, Zheng, Zhao,
+  Hansen-Estruch, Vuong, He, Myers, Fang, Finn, and
+  Levine]{walke2023bridgedata}
+Homer Walke, Kevin Black, Abraham Lee, Moo~Jin Kim, Max Du, Chongyi Zheng, Tony
+  Zhao, Philippe Hansen-Estruch, Quan Vuong, Andre He, Vivek Myers, Kuan Fang,
+  Chelsea Finn, and Sergey Levine.
+\newblock {BridgeData V2}: A dataset for robot learning at scale.
+\newblock In \emph{Proceedings of The 7th Conference on Robot Learning}, volume
+  229 of \emph{Proceedings of Machine Learning Research}, pages 1723--1736.
+  PMLR, 2023.
+\newblock URL \url{https://proceedings.mlr.press/v229/walke23a.html}.
+
+\bibitem[Wang and Komatsuzaki(2021)]{wang2021gptj}
+Ben Wang and Aran Komatsuzaki.
+\newblock {GPT-J-6B}: A 6 billion parameter autoregressive language model.
+\newblock \url{https://github.com/kingoflolz/mesh-transformer-jax}, May 2021.
+
+\bibitem[Wang et~al.(2022)Wang, Jansen, C{\^o}t{\'e}, and
+  Ammanabrolu]{wang2022scienceworld}
+Ruoyao Wang, Peter Jansen, Marc-Alexandre C{\^o}t{\'e}, and Prithviraj
+  Ammanabrolu.
+\newblock {ScienceWorld}: Is your agent smarter than a 5th grader?
+\newblock In \emph{Proceedings of the 2022 Conference on Empirical Methods in
+  Natural Language Processing}, pages 11279--11298, Abu Dhabi, United Arab
+  Emirates, December 2022. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2022.emnlp-main.775}.
+\newblock URL \url{https://aclanthology.org/2022.emnlp-main.775/}.
+
+\bibitem[Wang et~al.(2025)Wang, Li, Song, Xu, Tang, Zhuge, Pan, Song, Li,
+  Singh, Tran, Li, Ma, Zheng, Qian, Shao, Muennighoff, Zhang, Hui, Lin,
+  Brennan, Peng, Ji, and Neubig]{wang2025openhands}
+Xingyao Wang, Boxuan Li, Yufan Song, Frank~F. Xu, Xiangru Tang, Mingchen Zhuge,
+  Jiayi Pan, Yueqi Song, Bowen Li, Jaskirat Singh, Hoang~H. Tran, Fuqiang Li,
+  Ren Ma, Mingzhang Zheng, Bill Qian, Yanjun Shao, Niklas Muennighoff, Yizhe
+  Zhang, Binyuan Hui, Junyang Lin, Robert Brennan, Hao Peng, Heng Ji, and
+  Graham Neubig.
+\newblock {OpenHands}: An open platform for {AI} software developers as
+  generalist agents.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, pages 65882--65919, 2025.
+\newblock URL
+  \url{https://proceedings.iclr.cc/paper_files/paper/2025/hash/a4b6ad6b48850c0c331d1259fc66a69c-Abstract-Conference.html}.
+
+\bibitem[Weed and Bach(2019)]{weed2019sharp}
+Jonathan Weed and Francis Bach.
+\newblock Sharp asymptotic and finite-sample rates of convergence of empirical
+  measures in {W}asserstein distance.
+\newblock \emph{Bernoulli}, 25\penalty0 (4A):\penalty0 2620--2648, 2019.
+
+\bibitem[Wei et~al.(2022)Wei, Wang, Schuurmans, Bosma, Ichter, Xia, Chi, Le,
+  and Zhou]{wei2023chainofthoughtpromptingelicitsreasoning}
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia,
+  Ed~Chi, Quoc Le, and Denny Zhou.
+\newblock Chain-of-thought prompting elicits reasoning in large language
+  models.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2022.
+\newblock URL \url{https://arxiv.org/abs/2201.11903}.
+
+\bibitem[Xiao et~al.(2024)Xiao, Tian, Chen, Han, and
+  Lewis]{xiao2024streamingllm}
+Guangxuan Xiao, Yuandong Tian, Beidi Chen, Song Han, and Mike Lewis.
+\newblock Efficient streaming language models with attention sinks.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2309.17453}.
+
+\bibitem[Yang et~al.(2024)Yang, Jimenez, Wettig, Lieret, Yao, Narasimhan, and
+  Press]{yang2024sweagent}
+John Yang, Carlos~E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao,
+  Karthik Narasimhan, and Ofir Press.
+\newblock {SWE-agent}: Agent-computer interfaces enable automated software
+  engineering.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~37, pages 50528--50652. Curran Associates, Inc., 2024.
+\newblock \doi{10.52202/079017-1601}.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2024/hash/5a7c947568c1b1328ccc5230172e1e7c-Abstract-Conference.html}.
+
+\bibitem[Yao et~al.(2022)Yao, Chen, Yang, and Narasimhan]{yao2022webshop}
+Shunyu Yao, Howard Chen, John Yang, and Karthik Narasimhan.
+\newblock {WebShop}: Towards scalable real-world web interaction with grounded
+  language agents.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~35, pages 20744--20757. Curran Associates, Inc., 2022.
+\newblock \doi{10.52202/068431-1508}.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2022/hash/82ad13ec01f9fe44c01cb91814fd7b8c-Abstract-Conference.html}.
+
+\bibitem[Yao et~al.(2023)Yao, Yu, Zhao, Shafran, Griffiths, Cao, and
+  Narasimhan]{yao2023treethoughtsdeliberateproblem}
+Shunyu Yao, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas~L. Griffiths, Yuan
+  Cao, and Karthik Narasimhan.
+\newblock Tree of thoughts: Deliberate problem solving with large language
+  models.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2305.10601}.
+
+\bibitem[Zawalski et~al.(2025)Zawalski, Chen, Pertsch, Mees, Finn, and
+  Levine]{zawalski2025ecot}
+Micha{\l} Zawalski, William Chen, Karl Pertsch, Oier Mees, Chelsea Finn, and
+  Sergey Levine.
+\newblock Robotic control via embodied chain-of-thought reasoning.
+\newblock In \emph{Proceedings of The 8th Conference on Robot Learning}, volume
+  270 of \emph{Proceedings of Machine Learning Research}, pages 3157--3181.
+  PMLR, 2025.
+\newblock URL \url{https://proceedings.mlr.press/v270/zawalski25a.html}.
+
+\bibitem[Zhang et~al.(2022)Zhang, Roller, Goyal, et~al.]{zhang2022opt}
+Susan Zhang, Stephen Roller, Naman Goyal, et~al.
+\newblock {OPT}: Open pre-trained transformer language models, 2022.
+\newblock URL \url{https://arxiv.org/abs/2205.01068}.
+
+\bibitem[Zhao et~al.(2026)Zhao, Tan, Ma, Li, Jiang, Wang, Yang, and
+  Liu]{zhao2026chainofthoughtreasoningllmsmirage}
+Chengshuai Zhao, Zhen Tan, Pingchuan Ma, Dawei Li, Bohan Jiang, Yancheng Wang,
+  Yingzhen Yang, and Huan Liu.
+\newblock Is chain-of-thought reasoning of {LLMs} a mirage? {A} data
+  distribution lens, 2026.
+\newblock URL \url{https://arxiv.org/abs/2508.01191}.
+
+\bibitem[Zhao et~al.(2024)Zhao, Feng, Feng, Zhong, Xu, Yang, Liu, Qin, and
+  Liu]{zhao2024lengthextrapolationtransformerssurvey}
+Liang Zhao, Xiachong Feng, Xiaocheng Feng, Weihong Zhong, Dongliang Xu, Qing
+  Yang, Hongtao Liu, Bing Qin, and Ting Liu.
+\newblock Length extrapolation of transformers: A survey from the perspective
+  of positional encoding.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2024}, pages 9959--9977, 2024.
+\newblock \doi{10.18653/v1/2024.findings-emnlp.582}.
+\newblock URL \url{https://arxiv.org/abs/2312.17044}.
+
+\bibitem[Zheng et~al.(2024)Zheng, Gao, Shi, Huang, Li, Xiong, Ren, Ng, Jiang,
+  Li, and Li]{zheng2024dapedataadaptivepositionalencoding}
+Chuanyang Zheng, Yihang Gao, Han Shi, Minbin Huang, Jingyao Li, Jing Xiong,
+  Xiaozhe Ren, Michael Ng, Xin Jiang, Zhenguo Li, and Yu~Li.
+\newblock {DAPE}: Data-adaptive positional encoding for length extrapolation.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2405.14722}.
+
+\end{thebibliography}
