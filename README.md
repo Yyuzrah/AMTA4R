@@ -1,6 +1,6 @@
 # A Measure-Theoretic Analysis of Reasoning in Transformers: Structural Generalization and Approximation Limits
 
-Yuyang Zhang, Yifu Zhang, Xuehai Zhou, Xiaoyin Chen. NeurIPS 2026. [Paper](paper/paper.pdf) ([LaTeX source](paper/latex/))
+Yuyang Zhang, Yifu Zhang, Xuehai Zhou, Xiaoyin Chen. NeurIPS 2026. [Paper](paper/paper.pdf) 
 
 We map search trajectories to 12 structural features, measure the shift between trajectory distributions with
 the Wasserstein-1 distance, and bound out-of-distribution risk in terms of the positional encoding (APE or RoPE),
